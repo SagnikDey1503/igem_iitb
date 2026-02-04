@@ -37,67 +37,45 @@
       .app-loader__card {
         display: grid;
         place-items: center;
-        gap: 10px;
-        width: 260px;
-        height: 260px;
-        padding: 22px;
-        border-radius: 50%;
-        border: 1px solid rgba(31, 122, 140, 0.2);
-        background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(235, 244, 248, 0.75));
-        box-shadow: 0 22px 60px rgba(26, 36, 52, 0.18);
+        gap: 18px;
+        width: min(320px, 78vw);
+        padding: 28px 24px 34px;
+        border-radius: 999px;
+        border: 1px solid rgba(31, 122, 140, 0.16);
+        background: rgba(255, 255, 255, 0.78);
+        box-shadow: 0 18px 50px rgba(26, 36, 52, 0.15);
         text-align: center;
       }
-      .app-loader__pulse {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        font-family: "Manrope", sans-serif;
-        font-size: 12px;
-        letter-spacing: 0.38em;
-        text-transform: uppercase;
-        color: #1f7a8c;
-      }
-      .app-loader__dots span {
-        width: 6px;
-        height: 6px;
+      .app-loader__ring {
+        width: 120px;
+        height: 120px;
         border-radius: 50%;
-        background: #1f7a8c;
-        display: inline-block;
-        animation: loader-bounce 1.2s infinite ease-in-out;
-      }
-      .app-loader__dots span:nth-child(2) {
-        animation-delay: 0.2s;
-        background: #5bc0d9;
-      }
-      .app-loader__dots span:nth-child(3) {
-        animation-delay: 0.4s;
-        background: #e2a053;
+        background:
+          conic-gradient(
+            from 0deg,
+            rgba(31, 122, 140, 0.9),
+            rgba(91, 192, 217, 0.9),
+            rgba(226, 160, 83, 0.9),
+            rgba(31, 122, 140, 0.9)
+          );
+        -webkit-mask: radial-gradient(circle, transparent 58%, #000 60%);
+        mask: radial-gradient(circle, transparent 58%, #000 60%);
+        animation: loader-spin 1.6s linear infinite;
+        filter: drop-shadow(0 12px 20px rgba(31, 122, 140, 0.25));
       }
       .app-loader__title {
         font-family: "Cormorant Garamond", serif;
         font-size: 22px;
         margin: 0;
         color: #1f2533;
-        max-width: 200px;
+        letter-spacing: 0.06em;
       }
-      .app-loader__subtitle {
-        margin: 0;
-        font-family: "Manrope", sans-serif;
-        font-size: 14px;
-        color: #5f6a7a;
-        max-width: 200px;
-      }
-      @keyframes loader-bounce {
-        0%,
-        80%,
-        100% {
-          transform: translateY(0);
-          opacity: 0.6;
+      @keyframes loader-spin {
+        0% {
+          transform: rotate(0deg);
         }
-        40% {
-          transform: translateY(-6px);
-          opacity: 1;
+        100% {
+          transform: rotate(360deg);
         }
       }
     </style>
@@ -105,16 +83,8 @@
   <body class="text-ink font-body">
     <div class="app-loader" id="app-loader" aria-live="polite">
       <div class="app-loader__card">
-        <div class="app-loader__pulse">
-          <span>Loading</span>
-          <span class="app-loader__dots" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-        </div>
-        <h1 class="app-loader__title">Loading iGEM IITB Wiki</h1>
-        <p class="app-loader__subtitle">Preparing the latest team story and documentation.</p>
+        <div class="app-loader__ring" aria-hidden="true"></div>
+        <h1 class="app-loader__title">Loading...</h1>
       </div>
     </div>
     <div id="root"></div>
