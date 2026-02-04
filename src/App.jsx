@@ -153,7 +153,7 @@ export default function App() {
       <header className="fixed top-0 z-30 w-full">
         <div className="mx-auto w-full sm:pt-3 sm:w-[92vw] sm:px-4 md:w-[85vw] lg:w-[70vw] xl:min-w-[1100px] xl:max-w-[1400px]">
           <div className="flex w-full items-center justify-center rounded-none border border-transparent bg-white px-4 py-3 pr-4 shadow-none backdrop-blur-sm sm:rounded-full sm:border-black/10 sm:bg-white/60 sm:px-6 sm:py-3 sm:pr-6 sm:shadow-lg sm:backdrop-blur-sm">
-            <div className="flex w-full items-center gap-6">
+            <div className="flex w-full items-center gap-4">
               <div className="flex shrink-0 items-center gap-3">
                 <img
                   src={iitbLogo}
@@ -165,7 +165,7 @@ export default function App() {
                   <p className="text-base font-semibold text-ink sm:text-lg">IIT BOMBAY</p>
                 </div>
               </div>
-              <nav className="hidden min-w-0 flex-1 items-center justify-end gap-3 pl-4 text-xs text-muted xl:flex xl:text-sm 2xl:gap-4">
+              <nav className="hidden min-w-0 flex-1 items-center justify-start gap-3 pl-3 text-xs text-muted xl:flex xl:text-sm 2xl:gap-4">
                 {['About', 'Project', 'Achievements', 'Pipeline', 'Subteams', 'Gallery', 'Wiki', 'Press', 'Contact'].map(
                   (item) => (
                     <a
