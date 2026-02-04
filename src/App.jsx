@@ -153,7 +153,7 @@ export default function App() {
                 <img
                   src={iitbLogo}
                   alt="iGEM IIT Bombay logo"
-                  className="h-20 w-20 rounded-full border border-black/10 bg-white/80 object-contain p-2 sm:h-16 sm:w-16"
+                  className="h-[84px] w-[84px] shrink-0 rounded-full object-contain mix-blend-multiply drop-shadow-[0_14px_22px_rgba(26,36,52,0.18)] sm:h-[72px] sm:w-[72px]"
                 />
                 <div className="leading-tight whitespace-nowrap">
                   <p className="text-xs uppercase tracking-[0.35em] text-accent">iGEM</p>
@@ -530,7 +530,7 @@ export default function App() {
                 <img
                   src={iitbLogo}
                   alt="iGEM IIT Bombay logo"
-                  className="h-12 w-12 rounded-xl border border-black/10 bg-white/80 object-contain p-1.5"
+                  className="h-12 w-12 rounded-xl object-contain mix-blend-multiply"
                 />
                 <div>
                   <p className="font-semibold">iGEM IIT Bombay</p>
@@ -587,7 +587,7 @@ export default function App() {
                 <img
                   src={iitbLogo}
                   alt="iGEM IIT Bombay logo"
-                  className="h-10 w-10 rounded-xl border border-black/10 bg-white/80 object-contain p-1.5"
+                  className="h-10 w-10 rounded-xl object-contain mix-blend-multiply"
                 />
                 <div>
                   <p className="font-semibold text-ink">iGEM IIT Bombay</p>
