@@ -11,8 +11,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 const loader = document.getElementById('app-loader');
 if (loader) {
-  requestAnimationFrame(() => {
+  const minDelay = 2000;
+  setTimeout(() => {
     loader.classList.add('is-hidden');
     setTimeout(() => loader.remove(), 600);
-  });
+  }, minDelay);
 }
