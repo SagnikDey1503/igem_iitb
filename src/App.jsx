@@ -143,13 +143,6 @@ export default function App() {
 
   return (
     <div className="relative overflow-x-hidden">
-      <div className="pointer-events-none absolute inset-x-0 -top-[240px] -bottom-[240px] -z-10 overflow-hidden" aria-hidden="true">
-        <div className="bg-layer bg-layer--bg1" />
-        <div className="bg-layer bg-layer--bg3" />
-        <div className="bg-layer bg-layer--bg4" />
-        <div className="bg-overlay" />
-      </div>
-
       <header className="fixed top-0 z-30 w-full">
         <div className="mx-auto w-full sm:pt-3 sm:w-[92vw] sm:px-4 md:w-[85vw] lg:w-[70vw] xl:min-w-[1000px] xl:max-w-[1070px]">
           <div className="flex w-full items-center justify-center rounded-none border border-transparent bg-white px-4 py-3 pr-4 shadow-none backdrop-blur-sm sm:rounded-full sm:border-black/10 sm:bg-white/60 sm:px-6 sm:py-3 sm:pr-6 sm:shadow-lg sm:backdrop-blur-sm">
@@ -171,7 +164,7 @@ export default function App() {
                     <a
                       key={item}
                       href={`#${item.toLowerCase()}`}
-                      className="group relative rounded-full px-3 py-2 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/70 hover:text-ink hover:shadow-[0_14px_30px_rgba(31,122,140,0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(31,122,140,0.35)]"
+                      className="relative rounded-full px-3 py-2 transition-shadow duration-300 hover:shadow-[0_14px_30px_rgba(31,122,140,0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(31,122,140,0.35)]"
                     >
                       {item}
                     </a>
@@ -584,9 +577,9 @@ export default function App() {
         </section>
       </main>
 
-      <footer className="border-t border-black/10 bg-[#e7f1f6] py-10">
+      <footer className="border-t border-black/10 bg-[#e7f1f6] py-8">
         <div className="mx-auto w-[92vw] px-4 md:w-[85vw] md:px-6 lg:w-[70vw]">
-          <div className="grid gap-8 md:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-4">
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <img
@@ -605,19 +598,59 @@ export default function App() {
             </div>
             <div className="space-y-3 text-sm text-muted">
               <p className="font-semibold text-ink">Quick Links</p>
-              <a href="#project">Project</a>
-              <a href="#achievements">Achievements</a>
-              <a href="#pipeline">Pipeline</a>
-              <a href="#wiki">Wiki</a>
+              <a
+                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
+                href="#project"
+              >
+                Project
+              </a>
+              <a
+                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
+                href="#achievements"
+              >
+                Achievements
+              </a>
+              <a
+                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
+                href="#pipeline"
+              >
+                Pipeline
+              </a>
+              <a
+                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
+                href="#wiki"
+              >
+                Wiki
+              </a>
             </div>
             <div className="space-y-3 text-sm text-muted">
               <p className="font-semibold text-ink">Resources</p>
-              <a href="#press">Press</a>
-              <a href="#gallery">Gallery</a>
-              <a href="https://2024.igem.wiki/iit-bombay/" target="_blank" rel="noreferrer">
+              <a
+                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
+                href="#press"
+              >
+                Press
+              </a>
+              <a
+                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
+                href="#gallery"
+              >
+                Gallery
+              </a>
+              <a
+                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
+                href="https://2024.igem.wiki/iit-bombay/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 iGEM Wiki
               </a>
-              <a href="mailto:igem@iitb.ac.in">Email Us</a>
+              <a
+                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
+                href="mailto:igem@iitb.ac.in"
+              >
+                Email Us
+              </a>
             </div>
             <div className="space-y-3 text-sm text-muted">
               <p className="font-semibold text-ink">Contact</p>
