@@ -141,7 +141,7 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-x-hidden">
       <div className="absolute inset-0 -z-10" aria-hidden="true" />
 
       <header className="fixed top-0 z-30 w-full">
