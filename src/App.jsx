@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import iitbLogo from './assets/iitb.webp';
 
 const stats = [
   { label: 'Silver Medal', value: 'iGEM 2025 — Paris' },
@@ -149,9 +150,11 @@ export default function App() {
           <div className="flex w-full items-center justify-center rounded-none border border-transparent bg-white px-4 py-3 pr-4 shadow-none backdrop-blur-sm sm:rounded-full sm:border-black/10 sm:bg-white/60 sm:px-6 sm:py-3 sm:pr-6 sm:shadow-lg sm:backdrop-blur-sm">
             <div className="flex w-full items-center gap-6">
               <div className="flex shrink-0 items-center gap-3">
-                <div className="grid h-20 w-20 place-items-center rounded-full border border-black/10 bg-white/80 text-xs font-semibold text-muted sm:h-16 sm:w-16">
-                  iGEM
-                </div>
+                <img
+                  src={iitbLogo}
+                  alt="iGEM IIT Bombay logo"
+                  className="h-20 w-20 rounded-full border border-black/10 bg-white/80 object-contain p-2 sm:h-16 sm:w-16"
+                />
                 <div className="leading-tight whitespace-nowrap">
                   <p className="text-xs uppercase tracking-[0.35em] text-accent">iGEM</p>
                   <p className="text-base font-semibold text-ink sm:text-lg">IIT BOMBAY</p>
@@ -524,9 +527,11 @@ export default function App() {
           <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_1.2fr]">
             <div className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg">
               <div className="flex items-center gap-4">
-                <div className="grid h-12 w-12 place-items-center rounded-xl border border-black/10 bg-white/80 text-[10px] font-semibold text-muted">
-                  iGEM
-                </div>
+                <img
+                  src={iitbLogo}
+                  alt="iGEM IIT Bombay logo"
+                  className="h-12 w-12 rounded-xl border border-black/10 bg-white/80 object-contain p-1.5"
+                />
                 <div>
                   <p className="font-semibold">iGEM IIT Bombay</p>
                   <p className="text-sm text-muted">Tech Team · IIT Bombay</p>
@@ -579,9 +584,11 @@ export default function App() {
           <div className="grid gap-8 md:grid-cols-4">
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-xl border border-black/10 bg-white/80 text-[10px] font-semibold text-muted">
-                  iGEM
-                </div>
+                <img
+                  src={iitbLogo}
+                  alt="iGEM IIT Bombay logo"
+                  className="h-10 w-10 rounded-xl border border-black/10 bg-white/80 object-contain p-1.5"
+                />
                 <div>
                   <p className="font-semibold text-ink">iGEM IIT Bombay</p>
                   <p className="text-xs text-muted">Synthetic Biology Team</p>
