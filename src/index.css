@@ -7,40 +7,97 @@
 }
 
 body {
-  background-color: #0b1a1f;
+  --bg-tile: 110vh;
+  --bg-tile2: 220vh;
+  --bg-cycle: 330vh;
+
+  background-color: #fbf8f1;
   position: relative;
   min-height: 100vh;
 }
 
-body::before {
-  content: "";
+.bg-layer {
   position: absolute;
   inset: 0;
-  background-image: url("./assets/bg-stack.png");
-  background-size: 110% auto;
-  background-position: 30% 0%;
+  left: -7vw;
+  right: -7vw;
+  top: 0;
+  bottom: 0;
   background-repeat: repeat-y;
+  background-size: auto var(--bg-tile);
+  background-position: 50% 0%;
   pointer-events: none;
-  z-index: 0;
+  opacity: 0.95;
 }
 
-body::after {
-  content: "";
+.bg-layer--bg1 {
+  background-image: url("./assets/bg1.png");
+  -webkit-mask-image: repeating-linear-gradient(
+    to bottom,
+    #000 0,
+    #000 var(--bg-tile),
+    transparent var(--bg-tile),
+    transparent var(--bg-cycle)
+  );
+  mask-image: repeating-linear-gradient(
+    to bottom,
+    #000 0,
+    #000 var(--bg-tile),
+    transparent var(--bg-tile),
+    transparent var(--bg-cycle)
+  );
+}
+
+.bg-layer--bg3 {
+  background-image: url("./assets/bg3.png");
+  -webkit-mask-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent var(--bg-tile),
+    #000 var(--bg-tile),
+    #000 var(--bg-tile2),
+    transparent var(--bg-tile2),
+    transparent var(--bg-cycle)
+  );
+  mask-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent var(--bg-tile),
+    #000 var(--bg-tile),
+    #000 var(--bg-tile2),
+    transparent var(--bg-tile2),
+    transparent var(--bg-cycle)
+  );
+}
+
+.bg-layer--bg4 {
+  background-image: url("./assets/bg4.png");
+  -webkit-mask-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent var(--bg-tile2),
+    #000 var(--bg-tile2),
+    #000 var(--bg-cycle)
+  );
+  mask-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent var(--bg-tile2),
+    #000 var(--bg-tile2),
+    #000 var(--bg-cycle)
+  );
+}
+
+.bg-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     120deg,
-    rgba(255, 250, 245, 0.305),
-    rgba(248, 246, 240, 0.241),
-    rgba(255, 250, 245, 0.232)
+    rgba(255, 250, 245, 0.34),
+    rgba(248, 246, 240, 0.26),
+    rgba(255, 250, 245, 0.22)
   );
   pointer-events: none;
-  z-index: 1;
-}
-
-#root {
-  position: relative;
-  z-index: 2;
 }
 
 @media (max-width: 768px) {
@@ -55,8 +112,9 @@ body::after {
     background-repeat: repeat, repeat, no-repeat;
   }
 
-  body::before,
-  body::after {
-    content: none;
+  .bg-layer,
+  .bg-overlay {
+    display: none;
   }
 }
+

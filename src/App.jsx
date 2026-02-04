@@ -143,7 +143,12 @@ export default function App() {
 
   return (
     <div className="relative overflow-x-hidden">
-      <div className="absolute inset-0 -z-10" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+        <div className="bg-layer bg-layer--bg1" />
+        <div className="bg-layer bg-layer--bg3" />
+        <div className="bg-layer bg-layer--bg4" />
+        <div className="bg-overlay" />
+      </div>
 
       <header className="fixed top-0 z-30 w-full">
         <div className="mx-auto w-full sm:pt-3 sm:w-[92vw] sm:px-4 md:w-[85vw] lg:w-[70vw] xl:min-w-[1100px] xl:max-w-[1400px]">
