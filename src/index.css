@@ -16,9 +16,9 @@ body::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("./assets/bg1.png");
+  background-image: url("./assets/bg-stack.png");
   background-size: 110% auto;
-  background-position: 50% 0%;
+  background-position: 30% 0%;
   background-repeat: repeat-y;
   pointer-events: none;
   z-index: 0;
