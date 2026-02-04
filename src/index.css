@@ -12,22 +12,23 @@ body {
 }
 
 body {
-  --bg-size: 112% auto;
-  --bg-pos: 50% 0%;
+  --bg-size: 110% auto;
+  --bg-pos: 30% 0%;
 
   background-color: #fbf8f1;
-  background-image: url("./assets/bg1.png");
-  background-repeat: repeat-y;
-  background-size: var(--bg-size);
-  background-position: var(--bg-pos);
-  background-attachment: scroll;
+  background-image:
+    linear-gradient(
+      120deg,
+      rgba(169, 195, 202, 0.158),
+      rgba(157, 181, 188, 0.08),
+      rgba(10, 24, 28, 0.18)
+    ),
+    url("./assets/merged-image.png");
+  background-repeat: no-repeat, repeat-y;
+  background-size: 100% 100%, var(--bg-size);
+  background-position: 0 0, var(--bg-pos);
+  background-attachment: scroll, scroll;
   min-height: 100vh;
-}
-
-@media (min-width: 1024px) {
-  body {
-    background-attachment: fixed;
-  }
 }
 
 @media (max-width: 768px) {
