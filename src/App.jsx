@@ -143,7 +143,7 @@ export default function App() {
 
   return (
     <div className="relative overflow-x-hidden">
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      <div className="pointer-events-none absolute inset-x-0 -top-[240px] -bottom-[240px] -z-10 overflow-hidden" aria-hidden="true">
         <div className="bg-layer bg-layer--bg1" />
         <div className="bg-layer bg-layer--bg3" />
         <div className="bg-layer bg-layer--bg4" />
@@ -151,7 +151,7 @@ export default function App() {
       </div>
 
       <header className="fixed top-0 z-30 w-full">
-        <div className="mx-auto w-full sm:pt-3 sm:w-[92vw] sm:px-4 md:w-[85vw] lg:w-[70vw] xl:min-w-[1100px] xl:max-w-[1280px]">
+        <div className="mx-auto w-full sm:pt-3 sm:w-[92vw] sm:px-4 md:w-[85vw] lg:w-[70vw] xl:min-w-[1000px] xl:max-w-[1070px]">
           <div className="flex w-full items-center justify-center rounded-none border border-transparent bg-white px-4 py-3 pr-4 shadow-none backdrop-blur-sm sm:rounded-full sm:border-black/10 sm:bg-white/60 sm:px-6 sm:py-3 sm:pr-6 sm:shadow-lg sm:backdrop-blur-sm">
             <div className="flex w-full items-center gap-4">
               <div className="flex shrink-0 items-center gap-3">

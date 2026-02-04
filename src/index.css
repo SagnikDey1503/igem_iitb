@@ -6,10 +6,27 @@
   color-scheme: light;
 }
 
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
 body {
   --bg-tile: 110vh;
   --bg-tile2: 220vh;
   --bg-cycle: 330vh;
+
+  /* Per-layer controls (edit these to tweak framing). */
+  --bg1-size: 112% auto;
+  --bg1-pos: 50% 0%;
+
+  --bg3-size: 112% auto;
+  --bg3-pos: 50% 0%;
+
+  --bg4-size: 112% auto;
+  --bg4-pos: 50% 0%;
+
+  --bg-opacity: 0.95;
 
   background-color: #fbf8f1;
   position: relative;
@@ -24,14 +41,14 @@ body {
   top: 0;
   bottom: 0;
   background-repeat: repeat-y;
-  background-size: auto var(--bg-tile);
-  background-position: 50% 0%;
   pointer-events: none;
-  opacity: 0.95;
+  opacity: var(--bg-opacity);
 }
 
 .bg-layer--bg1 {
   background-image: url("./assets/bg1.png");
+  background-size: var(--bg1-size);
+  background-position: var(--bg1-pos);
   -webkit-mask-image: repeating-linear-gradient(
     to bottom,
     #000 0,
@@ -50,6 +67,8 @@ body {
 
 .bg-layer--bg3 {
   background-image: url("./assets/bg3.png");
+  background-size: var(--bg3-size);
+  background-position: var(--bg3-pos);
   -webkit-mask-image: repeating-linear-gradient(
     to bottom,
     transparent 0,
@@ -72,6 +91,8 @@ body {
 
 .bg-layer--bg4 {
   background-image: url("./assets/bg4.png");
+  background-size: var(--bg4-size);
+  background-position: var(--bg4-pos);
   -webkit-mask-image: repeating-linear-gradient(
     to bottom,
     transparent 0,
@@ -93,8 +114,8 @@ body {
   inset: 0;
   background: linear-gradient(
     120deg,
-    rgba(255, 250, 245, 0.34),
-    rgba(248, 246, 240, 0.26),
+    rgba(255, 250, 245, 0.145),
+    rgba(248, 246, 240, 0.101),
     rgba(255, 250, 245, 0.22)
   );
   pointer-events: none;
@@ -117,4 +138,3 @@ body {
     display: none;
   }
 }
-
