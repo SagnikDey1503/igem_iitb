@@ -4,90 +4,123 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>iGEM IIT Bombay</title>
-    <meta
-      name="description"
-      content="iGEM IIT Bombay — a student-led synthetic biology team representing IIT Bombay at the annual iGEM competition."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+
     <style>
+      /* ===== Glass Background (No Box) ===== */
+
       .app-loader {
         position: fixed;
         inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #eef7fb, #e6f2f8);
+        backdrop-filter: blur(14px);
         z-index: 9999;
-        display: grid;
-        place-items: center;
-        background: linear-gradient(
-            120deg,
-            rgba(255, 255, 255, 0.85),
-            rgba(240, 248, 255, 0.75)
-          ),
-          rgba(235, 244, 248, 0.7);
-        backdrop-filter: blur(10px);
-        transition: opacity 0.5s ease, visibility 0.5s ease;
+        transition: opacity 0.4s ease;
+        flex-direction: column;
       }
-      .app-loader.is-hidden {
+
+      .app-loader.hidden {
         opacity: 0;
-        visibility: hidden;
+        pointer-events: none;
       }
-      .app-loader__card {
-        display: grid;
-        place-items: center;
-        gap: 18px;
-        width: min(320px, 78vw);
-        padding: 28px 24px 34px;
-        border-radius: 999px;
-        border: 1px solid rgba(31, 122, 140, 0.18);
-        background: transparent;
-        box-shadow: none;
-        text-align: center;
-      }
-      .app-loader__ring {
-        width: 120px;
-        height: 120px;
+
+      /* Spinner */
+      .loader-circle {
+        width: 60px;
+        height: 60px;
+        border: 5px solid rgba(31, 122, 140, 0.2);
+        border-top: 5px solid #1f7a8c;
         border-radius: 50%;
-        background:
-          conic-gradient(
-            from 0deg,
-            rgba(31, 122, 140, 0.9),
-            rgba(91, 192, 217, 0.9),
-            rgba(226, 160, 83, 0.9),
-            rgba(31, 122, 140, 0.9)
-          );
-        -webkit-mask: radial-gradient(circle, transparent 58%, #000 60%);
-        mask: radial-gradient(circle, transparent 58%, #000 60%);
-        animation: loader-spin 1.6s linear infinite;
-        filter: drop-shadow(0 12px 20px rgba(31, 122, 140, 0.25));
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
       }
-      .app-loader__title {
-        font-family: "Cormorant Garamond", serif;
+
+      /* Text */
+      .loader-text {
+        font-size: 18px;
+        font-family: sans-serif;
+        letter-spacing: 1px;
+      }
+
+      /* Bigger RGB Dots */
+      .dots span {
+        display: inline-block;
         font-size: 22px;
-        margin: 0;
-        color: #1f2533;
-        letter-spacing: 0.06em;
+        font-weight: bold;
+        animation: wave 1.2s infinite ease-in-out;
       }
-      @keyframes loader-spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
+
+      .dots span:nth-child(1) {
+        color: #e63946; /* red */
+        animation-delay: 0s;
+      }
+
+      .dots span:nth-child(2) {
+        color: #f4a261; /* yellow */
+        animation-delay: 0.2s;
+      }
+
+      .dots span:nth-child(3) {
+        color: #2a9d8f; /* green */
+        animation-delay: 0.4s;
+      }
+
+      @keyframes spin {
+        to {
           transform: rotate(360deg);
+        }
+      }
+
+      @keyframes wave {
+        0%, 60%, 100% {
+          transform: translateY(0);
+          opacity: 0.4;
+        }
+        30% {
+          transform: translateY(-8px);
+          opacity: 1;
         }
       }
     </style>
   </head>
-  <body class="text-ink font-body">
-    <div class="app-loader" id="app-loader" aria-live="polite">
-      <div class="app-loader__card">
-        <div class="app-loader__ring" aria-hidden="true"></div>
-        <h1 class="app-loader__title">Loading...</h1>
+
+  <body>
+    <!-- Loader -->
+    <div class="app-loader" id="app-loader">
+      <div class="loader-circle"></div>
+      <div class="loader-text">
+        Loading
+        <span class="dots">
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
+        </span>
       </div>
     </div>
+
+    <!-- React Root -->
     <div id="root"></div>
+
+    <!-- Minimum 1.5 sec loader -->
+    <script>
+      const MIN_TIME = 1500;
+      const startTime = Date.now();
+
+      window.addEventListener("load", () => {
+        const loader = document.getElementById("app-loader");
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(MIN_TIME - elapsed, 0);
+
+        setTimeout(() => {
+          loader.classList.add("hidden");
+          setTimeout(() => loader.remove(), 400);
+        }, remaining);
+      });
+    </script>
+
+    <!-- Vite Dev -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
