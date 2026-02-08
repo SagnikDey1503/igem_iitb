@@ -146,7 +146,7 @@ export default function App() {
       <header className="fixed top-0 z-30 w-full">
        <div className="mx-auto w-full sm:pt-3 sm:w-[92vw] sm:px-4 md:w-[85vw] lg:w-[70vw] xl:min-w-[1050px]">
 
-          <div className="flex w-full items-center justify-center rounded-none border border-transparent bg-white px-4 py-3 pr-4 shadow-none backdrop-blur-sm sm:rounded-full sm:border-black/10 sm:bg-white/60 sm:px-6 sm:py-3 sm:pr-6 sm:shadow-lg sm:backdrop-blur-sm">
+          <div className="flex w-full items-center justify-center rounded-none border border-transparent bg-white/20 px-4 py-3 pr-4 shadow-none backdrop-blur-sm sm:rounded-full sm:border-black/10 sm:bg-white/20 sm:px-6 sm:py-3  sm:shadow-lg sm:backdrop-blur-sm">
             <div className="flex w-full items-center gap-4">
               <div className="flex shrink-0 items-center gap-3">
                 <img
@@ -189,7 +189,7 @@ export default function App() {
           </div>
 
           <div className={`xl:hidden ${menuOpen ? 'block' : 'hidden'}`}>
-            <div className="mt-2 flex flex-col gap-3 rounded-2xl border border-black/10 bg-white/95 px-4 py-4 text-sm text-muted shadow-lg backdrop-blur-md">
+            <div className="mt-2 flex flex-col gap-3 rounded-2xl text-center border border-black/1 bg-white/10 px-4 py-4 text-sm text-muted shadow-lg backdrop-blur-md">
               {['About', 'Project', 'Achievements', 'Pipeline', 'Subteams', 'Gallery', 'Wiki', 'Press', 'Contact'].map(
                 (item) => (
                   <a
