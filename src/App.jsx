@@ -1,154 +1,310 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import iitbLogo from './assets/iitb.webp';
 
-const stats = [
-  { label: 'Silver Medal', value: 'iGEM 2025 — Paris' },
-  { label: 'Gold Medal', value: 'iGEM 2024 — First Year' },
-  { label: 'Global Scale', value: '400+ iGEM Teams' }
-];
+gsap.registerPlugin(ScrollTrigger);
 
-const focusPoints = [
+const subteamConfig = [
   {
-    title: '2025 Focus',
-    text: 'Engineered protease therapy to disrupt biofilm infections in biomedical devices.'
+    key: 'wetlab',
+    label: 'Wet Lab',
+    short: 'Bench-scale synthetic biology and validation experiments.',
+    whatWeAre: 'We are the experimental core that translates project hypotheses into laboratory workflows.',
+    whatWeDo: [
+      'Design and execute cloning, expression, and assay workflows.',
+      'Run validation loops for reproducibility and biosafety compliance.',
+      'Coordinate sampling plans and experiment documentation.'
+    ],
+    works: [
+      { title: 'Construct Assembly', detail: 'Plasmid architecture, primer design, and cloning rounds.' },
+      { title: 'Biofilm Assays', detail: 'Quantitative tests for degradation efficiency.' },
+      { title: 'Validation Matrix', detail: 'Replicates, controls, and wet-lab quality checks.' }
+    ],
+    members: [
+      { name: 'Aarav Mehta', position: 'Wet Lab Lead' },
+      { name: 'Riya Sharma', position: 'Research Associate' },
+      { name: 'Kabir Nair', position: 'Assay Specialist' },
+      { name: 'Sana Khan', position: 'Lab Operations' }
+    ]
   },
   {
-    title: 'Faculty Mentors',
-    text: 'Prof. Kiran Kondabagil (BSBE) and Prof. Saket Choudhary (KCDH).'
+    key: 'drylab',
+    label: 'Dry Lab',
+    short: 'Computational models, data analytics, and simulation loops.',
+    whatWeAre: 'We are the quantitative engine that guides design decisions using models and data.',
+    whatWeDo: [
+      'Build kinetic and systems-level models for project behavior.',
+      'Analyze experimental outputs and derive actionable insights.',
+      'Support optimization with simulation-based parameter sweeps.'
+    ],
+    works: [
+      { title: 'Kinetic Model Stack', detail: 'Reaction and degradation pathway modeling.' },
+      { title: 'Data Pipeline', detail: 'Processing assay outputs and confidence intervals.' },
+      { title: 'Scenario Simulation', detail: 'Parameter exploration for robust operating windows.' }
+    ],
+    members: [
+      { name: 'Neel Rao', position: 'Dry Lab Lead' },
+      { name: 'Ishita Das', position: 'Modeling Engineer' },
+      { name: 'Arjun Patel', position: 'Data Analyst' },
+      { name: 'Maya Iyer', position: 'Visualization Engineer' }
+    ]
   },
   {
-    title: 'Documentation',
-    text: 'Official 2025 team wiki and institute coverage for full technical details.'
+    key: 'ihp',
+    label: 'IHP',
+    short: 'Integrated Human Practices and responsible innovation.',
+    whatWeAre: 'We are the impact and governance unit connecting technical outcomes with societal context.',
+    whatWeDo: [
+      'Run stakeholder interviews across healthcare and policy ecosystems.',
+      'Perform ethics and risk-benefit mapping for deployment pathways.',
+      'Build outreach and science communication material for broader audiences.'
+    ],
+    works: [
+      { title: 'Stakeholder Mapping', detail: 'Clinicians, experts, and end-user interviews.' },
+      { title: 'Policy Review', detail: 'Regulatory pathway and ethical framework review.' },
+      { title: 'Outreach Programs', detail: 'Campus and school engagement activities.' }
+    ],
+    members: [
+      { name: 'Vani Kulkarni', position: 'IHP Lead' },
+      { name: 'Rahul Menon', position: 'Policy Researcher' },
+      { name: 'Nisha Verma', position: 'Outreach Coordinator' },
+      { name: 'Soham Roy', position: 'Ethics Analyst' }
+    ]
+  },
+  {
+    key: 'media-design',
+    label: 'Media & Design',
+    short: 'Visual systems, storytelling, and communication assets.',
+    whatWeAre: 'We are the narrative and identity team that converts technical work into clear visual communication.',
+    whatWeDo: [
+      'Design visual language for wiki, presentations, and campaigns.',
+      'Develop storytelling frameworks for project communication.',
+      'Support outreach with creative and structured media assets.'
+    ],
+    works: [
+      { title: 'Design System', detail: 'Color, typography, icon and layout standards.' },
+      { title: 'Science Storyboards', detail: 'Structured narratives for complex technical modules.' },
+      { title: 'Collateral Suite', detail: 'Posters, social assets, and event creatives.' }
+    ],
+    members: [
+      { name: 'Tanvi Gupta', position: 'Design Lead' },
+      { name: 'Yash Borkar', position: 'Illustrator' },
+      { name: 'Pooja Sethi', position: 'Content Designer' },
+      { name: 'Dev Arora', position: 'Media Coordinator' }
+    ]
+  },
+  {
+    key: 'web-dev',
+    label: 'Web Dev',
+    short: 'Wiki architecture, frontend engineering, and deployment.',
+    whatWeAre: 'We are the platform team responsible for building and shipping the team website and wiki experience.',
+    whatWeDo: [
+      'Develop responsive pages for project documentation and team content.',
+      'Maintain navigation, accessibility, and performance quality.',
+      'Manage release workflows for updates throughout the iGEM cycle.'
+    ],
+    works: [
+      { title: 'Page Architecture', detail: 'Structured information hierarchy across sections.' },
+      { title: 'Component Library', detail: 'Reusable UI blocks for rapid iteration.' },
+      { title: 'Release Workflow', detail: 'Build validation and deployment checks.' }
+    ],
+    members: [
+      { name: 'Aditya Sen', position: 'Web Lead' },
+      { name: 'Kritika Jain', position: 'UI Engineer' },
+      { name: 'Manav Shah', position: 'Frontend Developer' },
+      { name: 'Simran Kaur', position: 'QA and Accessibility' }
+    ]
   }
 ];
 
-const resourceLinks = [
-  { label: '2025 iGEM Wiki', href: 'https://2025.igem.wiki/iit-bombay/' },
-  { label: '2024 iGEM Wiki', href: 'https://2024.igem.wiki/iit-bombay/' },
-  {
-    label: 'IITB News (Silver Medal)',
-    href: 'https://www.iitb.ac.in/breaking-news/iit-bombays-igem-team-secures-silver-medal-paris-competition'
-  }
-];
+const routeSet = new Set(['home', ...subteamConfig.map((team) => team.key)]);
 
-const achievements = [
+const timelineEvents = [
+  {
+    year: '2024',
+    title: 'Team Onboarding and Problem Framing',
+    subtitle: 'Foundation',
+    text: 'The team shortlisted high-impact problem statements and created an aligned research direction.'
+  },
+  {
+    year: '2024',
+    title: 'Design Sprint and Early Validation',
+    subtitle: 'R&D Phase',
+    text: 'Wet Lab and Dry Lab collaborated on initial design assumptions and iterative validation plans.'
+  },
   {
     year: '2025',
-    title: 'Silver Medal — iGEM Competition, Paris',
-    text: 'IIT Bombay’s team earned silver in the 2025 iGEM competition held in Paris, France.'
+    title: 'Prototype Iteration and Human Practices',
+    subtitle: 'Integration',
+    text: 'Subteams converged technical outputs with stakeholder insights and responsible deployment pathways.'
   },
   {
-    year: '2024',
-    title: 'Gold Medal — First Participation Year',
-    text: 'The team won a gold medal at the iGEM Grand Jamboree in its first participation year.'
-  },
-  {
-    year: '2024',
-    title: 'Best Climate Crisis Project Nomination',
-    text: 'Recognized with a nomination for Best Climate Crisis Project at the Grand Jamboree.'
+    year: '2025',
+    title: 'Wiki Build and Final Submission',
+    subtitle: 'Delivery',
+    text: 'Documentation, presentation assets, and final project communication were prepared for iGEM.'
   }
 ];
 
-const pipeline = [
-  {
-    title: 'Problem discovery',
-    text: 'Clinical interviews and literature review identify the highest-impact biofilm infection use cases.'
-  },
-  {
-    title: 'Circuit design',
-    text: 'Protease selection, safety checks, and modular genetic circuit planning.'
-  },
-  {
-    title: 'Prototype build',
-    text: 'Wet-lab validation with measurable biofilm disruption endpoints.'
-  },
-  {
-    title: 'Modeling + analysis',
-    text: 'Dry lab modeling to optimize kinetics and stability.'
-  },
-  {
-    title: 'Human practices',
-    text: 'Ethics review and stakeholder feedback for responsible deployment.'
-  }
+const keyStats = [
+  { value: 'Silver', label: 'iGEM 2025 Medal' },
+  { value: 'Gold', label: 'iGEM 2024 Medal' },
+  { value: '400+', label: 'Global Teams' }
 ];
 
-const press = [
-  {
-    tag: 'IIT Bombay News',
-    title: 'Silver Medal at iGEM 2025 (Paris)',
-    text: 'Official institute announcement on the 2025 silver medal win.',
-    href: 'https://www.iitb.ac.in/breaking-news/iit-bombays-igem-team-secures-silver-medal-paris-competition'
-  },
-  {
-    tag: 'IITB Tech Council',
-    title: 'Gold Medal + Climate Crisis Nomination (2024)',
-    text: 'Achievements listing for iGEM IIT Bombay at Grand Jamboree 2024.',
-    href: 'https://tech-iitb.org/achievements/'
-  },
-  {
-    tag: 'IITB Tech Council',
-    title: 'Official Team Listing',
-    text: 'Team description, official email, and iGEM wiki link.',
-    href: 'https://tech-iitb.org/bodies/iGEM%20IIT%20Bombay/'
-  }
-];
+function getRouteFromHash() {
+  const hashValue = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+  return routeSet.has(hashValue) ? hashValue : 'home';
+}
 
-const gallery = [
-  {
-    src: 'https://www.iitb.ac.in/sites/www.iitb.ac.in/files/styles/slick_media/public/2025-11/IIT%20Bombay%27s%20iGEM%20Team%20secures%20Silver%20Medal%20at%20Paris%20Competition_1.jpg?itok=j9do2yH2',
-    alt: 'Team iGEM IIT Bombay at the Paris competition',
-    caption: 'Official IIT Bombay team photo from iGEM 2025 coverage.'
-  },
-  {
-    src: 'https://www.iitb.ac.in/sites/www.iitb.ac.in/files/styles/slick_media/public/2025-11/IIT%20Bombay%27s%20iGEM%20Team%20secures%20Silver%20Medal%20at%20Paris%20Competition_2.jpg?itok=J8c806Sa',
-    alt: 'Team iGEM IIT Bombay celebrating at iGEM 2025',
-    caption: 'IIT Bombay news coverage from the 2025 silver medal win.'
-  },
-  {
-    src: 'https://commons.wikimedia.org/wiki/Special:FilePath/IIT_Bombay_Main_Building.jpg',
-    alt: 'IIT Bombay main building',
-    caption: 'IIT Bombay main building (Wikimedia Commons).'
-  },
-  {
-    src: 'https://commons.wikimedia.org/wiki/Special:FilePath/IITBConvocationHall.JPG',
-    alt: 'IIT Bombay Convocation Hall',
-    caption: 'IIT Bombay Convocation Hall (Wikimedia Commons).'
-  },
-  {
-    src: 'https://commons.wikimedia.org/wiki/Special:FilePath/IITCampusPano.JPG',
-    alt: 'Panoramic view of IIT Bombay campus',
-    caption: 'IIT Bombay campus panorama (Wikimedia Commons).'
-  },
-  {
-    src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Powai_Lake_H14_IIT_Bombay.jpg',
-    alt: 'Powai Lake near IIT Bombay hostels',
-    caption: 'Powai Lake near IIT Bombay hostels (Wikimedia Commons).'
-  },
-  {
-    src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Powai_lake_iit_bombay.jpg',
-    alt: 'Powai Lake view at IIT Bombay campus',
-    caption: 'Powai Lake, IIT Bombay campus (Wikimedia Commons).'
-  },
-  {
-    src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Biology_lab.jpg',
-    alt: 'Biology laboratory work scene',
-    caption: 'Biology lab scene (Wikimedia Commons).'
-  }
-];
+function TeamDetailPage({ team, onGoHome }) {
+  return (
+    <section className="py-10 md:py-14">
+      <div className="rounded-[30px] border border-black/10 bg-white/90 p-6 shadow-soft md:p-8">
+        <p className="text-xs uppercase tracking-[0.35em] text-accent">Subteam</p>
+        <h1 className="mt-3 font-display text-3xl md:text-5xl">{team.label}</h1>
+        <button
+          type="button"
+          onClick={onGoHome}
+          className="mt-5 rounded-full border border-black/10 bg-white px-5 py-2 text-sm font-semibold text-ink transition-shadow hover:shadow-[0_12px_26px_rgba(31,122,140,0.24)]"
+        >
+          Back to Home
+        </button>
+      </div>
 
-const wikiMap = ['Project', 'Safety', 'Human Practices', 'Results', 'Contributions', 'Team'];
+      <div className="mt-8 grid gap-6 md:grid-cols-[1fr_1.1fr]">
+        <article className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft">
+          <p className="text-xs uppercase tracking-[0.28em] text-accent">What We Are</p>
+          <p className="mt-4 text-base text-muted">{team.whatWeAre}</p>
+        </article>
+        <article className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft">
+          <p className="text-xs uppercase tracking-[0.28em] text-accent">What We Do</p>
+          <ul className="mt-4 space-y-3 text-sm text-muted">
+            {team.whatWeDo.map((item) => (
+              <li key={item} className="flex items-start gap-3">
+                <span className="mt-1.5 h-2 w-2 rounded-full bg-accent" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      </div>
+
+      <div className="mt-8 rounded-[30px] border border-black/10 bg-white/90 p-6 shadow-soft md:p-8">
+        <p className="text-xs uppercase tracking-[0.28em] text-accent">Current Works</p>
+        <div className="mt-5 grid gap-5 md:grid-cols-3">
+          {team.works.map((work) => (
+            <article key={work.title} className="rounded-2xl border border-black/10 bg-white p-5">
+              <h3 className="font-display text-xl">{work.title}</h3>
+              <p className="mt-2 text-sm text-muted">{work.detail}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-8 rounded-[30px] border border-black/10 bg-white/90 p-6 shadow-soft md:p-8">
+        <p className="text-xs uppercase tracking-[0.28em] text-accent">Members</p>
+        <h2 className="mt-3 font-display text-2xl md:text-3xl">Member photos and positions</h2>
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {team.members.map((member) => (
+            <article key={member.name} className="rounded-2xl border border-black/10 bg-white p-4">
+              <div className="grid h-44 place-items-center rounded-xl border border-dashed border-black/20 bg-[#f3f8fb] text-xs uppercase tracking-[0.2em] text-muted">
+                Photo Placeholder
+              </div>
+              <p className="mt-4 font-semibold text-ink">{member.name}</p>
+              <p className="text-sm font-medium text-accent">{member.position}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [route, setRoute] = useState(getRouteFromHash());
+  const [subMenuOpen, setSubMenuOpen] = useState(false);
+  const timelineRef = useRef(null);
+
+  useEffect(() => {
+    const onHashChange = () => setRoute(getRouteFromHash());
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  useEffect(() => {
+    setMenuOpen(false);
+    setSubMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [route]);
+
+  useEffect(() => {
+    if (route !== 'home' || !timelineRef.current) return undefined;
+    const timelineContext = gsap.context(() => {
+      gsap.set('.tl-line', { scaleY: 0, transformOrigin: 'top center' });
+      gsap.to('.tl-line', {
+        scaleY: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.timeline-wrap',
+          start: 'top 72%',
+          end: 'bottom 35%',
+          scrub: true
+        }
+      });
+      gsap.fromTo(
+        '.tl-card',
+        { y: 46, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.timeline-wrap',
+            start: 'top 72%'
+          }
+        }
+      );
+      gsap.fromTo(
+        '.tl-dot',
+        { scale: 0, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.2,
+          ease: 'back.out(1.8)',
+          scrollTrigger: {
+            trigger: '.timeline-wrap',
+            start: 'top 72%'
+          }
+        }
+      );
+    }, timelineRef);
+    return () => timelineContext.revert();
+  }, [route]);
+
+  const activeTeam = useMemo(
+    () => subteamConfig.find((team) => team.key === route),
+    [route]
+  );
+
+  const navigate = (nextRoute) => {
+    if (!routeSet.has(nextRoute)) return;
+    window.location.hash = `/${nextRoute}`;
+  };
 
   return (
-    <div className="relative overflow-x-hidden">
+    <div className="relative min-h-screen overflow-x-hidden">
       <header className="fixed top-0 z-30 w-full">
-       <div className="mx-auto w-full sm:pt-3 sm:w-[92vw] sm:px-4 md:w-[85vw] lg:w-[70vw] xl:min-w-[1050px]">
-
-          <div className="flex w-full items-center justify-center rounded-none border border-transparent bg-white/20 px-4 py-3 pr-4 shadow-none backdrop-blur-sm sm:rounded-full sm:border-black/10 sm:bg-white/20 sm:px-6 sm:py-3  sm:shadow-lg sm:backdrop-blur-sm">
+        <div className="mx-auto w-full sm:pt-3 sm:w-[92vw] sm:px-4 md:w-[85vw] lg:w-[70vw] xl:min-w-[1050px]">
+          <div className="flex w-full items-center justify-center rounded-none border border-transparent bg-white/20 px-4 py-3 pr-4 shadow-none backdrop-blur-sm sm:rounded-full sm:border-black/10 sm:bg-white/20 sm:px-6 sm:py-3 sm:shadow-lg sm:backdrop-blur-sm">
             <div className="flex w-full items-center gap-4">
-              <div className="flex shrink-0 items-center gap-3">
+              <button type="button" onClick={() => navigate('home')} className="flex shrink-0 items-center gap-3 text-left">
                 <img
                   src={iitbLogo}
                   alt="iGEM IIT Bombay logo"
@@ -158,21 +314,67 @@ export default function App() {
                   <p className="text-xs uppercase tracking-[0.35em] text-accent">iGEM</p>
                   <p className="text-base font-semibold text-ink sm:text-lg">IIT BOMBAY</p>
                 </div>
-              </div>
-              <nav className="hidden min-w-0 flex-1 items-center justify-start gap-3 pl-3 text-xs text-muted xl:flex xl:text-sm 2xl:gap-4">
-                {['About', 'Project', 'Achievements', 'Pipeline', 'Subteams', 'Gallery', 'Wiki', 'Press', 'Contact'].map(
-                  (item) => (
-                    <a
-                      key={item}
-                      href={`#${item.toLowerCase()}`}
-                      className="relative rounded-full px-3 py-2 transition-shadow duration-300 hover:shadow-[0_14px_30px_rgba(31,122,140,0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(31,122,140,0.35)]"
-                    >
-                      {item}
-                    </a>
-                  )
-                )}
+              </button>
+
+              <nav className="hidden min-w-0 flex-1 items-center justify-start gap-2 pl-3 text-xs text-muted xl:flex xl:text-sm 2xl:gap-3">
+                <button
+                  type="button"
+                  onClick={() => navigate('home')}
+                  className={`rounded-full px-3 py-2 transition-shadow duration-300 hover:shadow-[0_14px_30px_rgba(31,122,140,0.24)] ${
+                    route === 'home' ? 'text-ink' : ''
+                  }`}
+                >
+                  Home
+                </button>
+
+                <div
+                  className="group relative"
+                  onMouseEnter={() => setSubMenuOpen(true)}
+                  onMouseLeave={() => setSubMenuOpen(false)}
+                >
+                  <button
+                    type="button"
+                    className="rounded-full px-3 py-2 transition-all duration-300 hover:px-6 hover:shadow-[0_14px_30px_rgba(31,122,140,0.26)]"
+                  >
+                    Subteams
+                  </button>
+                  <div
+                    className={`absolute left-0 top-[110%] z-40 w-56 rounded-2xl border border-black/10 bg-white/95 p-2 shadow-xl backdrop-blur-sm transition-all ${
+                      subMenuOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-1 opacity-0'
+                    }`}
+                  >
+                    {subteamConfig.map((team) => (
+                      <button
+                        key={`desktop-sub-${team.key}`}
+                        type="button"
+                        onClick={() => navigate(team.key)}
+                        className={`mb-1 block w-full rounded-xl px-3 py-2 text-left text-sm transition-shadow hover:shadow-[0_10px_20px_rgba(31,122,140,0.22)] ${
+                          route === team.key ? 'bg-[#eef8fb] text-ink' : 'text-muted'
+                        }`}
+                      >
+                        {team.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <a
+                  href="https://2025.igem.wiki/iit-bombay/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full px-3 py-2 transition-shadow duration-300 hover:shadow-[0_14px_30px_rgba(31,122,140,0.24)]"
+                >
+                  Wiki
+                </a>
+                <a
+                  href="mailto:igem@iitb.ac.in"
+                  className="rounded-full px-3 py-2 transition-shadow duration-300 hover:shadow-[0_14px_30px_rgba(31,122,140,0.24)]"
+                >
+                  Contact
+                </a>
               </nav>
             </div>
+
             <button
               type="button"
               aria-label="Toggle navigation"
@@ -189,483 +391,172 @@ export default function App() {
           </div>
 
           <div className={`xl:hidden ${menuOpen ? 'block' : 'hidden'}`}>
-            <div className="mt-2 flex flex-col gap-3 rounded-2xl text-center border border-black/1 bg-white/10 px-4 py-4 text-sm text-muted shadow-lg backdrop-blur-md">
-              {['About', 'Project', 'Achievements', 'Pipeline', 'Subteams', 'Gallery', 'Wiki', 'Press', 'Contact'].map(
-                (item) => (
-                  <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className="rounded-xl border border-black/10 bg-white/95 px-4 py-3 text-ink shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {item}
-                  </a>
-                )
-              )}
+            <div className="mt-2 flex flex-col gap-3 rounded-2xl border border-black/10 bg-white/30 px-4 py-4 text-sm text-muted shadow-lg backdrop-blur-md">
+              <button
+                type="button"
+                onClick={() => navigate('home')}
+                className={`rounded-xl border border-black/10 bg-white/95 px-4 py-3 text-left text-ink transition-shadow hover:shadow-[0_10px_20px_rgba(31,122,140,0.22)] ${
+                  route === 'home' ? 'font-semibold' : ''
+                }`}
+              >
+                Home
+              </button>
+              {subteamConfig.map((team) => (
+                <button
+                  key={`mobile-sub-${team.key}`}
+                  type="button"
+                  onClick={() => navigate(team.key)}
+                  className={`rounded-xl border border-black/10 bg-white/95 px-4 py-3 text-left text-ink transition-shadow hover:shadow-[0_10px_20px_rgba(31,122,140,0.22)] ${
+                    route === team.key ? 'font-semibold' : ''
+                  }`}
+                >
+                  {team.label}
+                </button>
+              ))}
+              <a
+                href="https://2025.igem.wiki/iit-bombay/"
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-xl border border-black/10 bg-white/95 px-4 py-3 text-left text-ink transition-shadow hover:shadow-[0_10px_20px_rgba(31,122,140,0.22)]"
+              >
+                Wiki
+              </a>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto w-[92vw] px-4 pt-20 md:w-[85vw] md:px-6 lg:w-[70vw] lg:pt-24 md:pt-24 lg:pt-28">
-        <section className="grid items-center gap-12 py-10 md:py-16 lg:grid-cols-[1.1fr_0.9fr]" id="about">
-          <div className="rounded-[32px] border border-black/10 bg-white/85 p-8 shadow-soft">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Engineering Biology • IIT Bombay</p>
-            <h1 className="mt-5 font-display text-4xl leading-tight md:text-6xl">
-              Student-led synthetic biology, built for real-world impact.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg text-muted">
-              iGEM IIT Bombay is a student-led synthetic biology team representing IIT Bombay at the annual iGEM
-              competition. iGEM is a global synthetic biology event that brings together 400+ teams worldwide.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                className="rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-                href="#project"
-              >
-                Explore 2025 Project
-              </a>
-              <a
-                className="rounded-full border border-black/10 bg-white/80 px-6 py-3 text-sm font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-white/80 hover:shadow-lg"
-                href="https://2025.igem.wiki/iit-bombay/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Visit 2025 Wiki
-              </a>
-            </div>
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
-              {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-2xl border border-black/10 bg-white/90 p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-                >
-                  <p className="text-base font-semibold text-ink">{stat.value}</p>
-                  <p className="text-xs uppercase tracking-[0.2em] text-muted">{stat.label}</p>
+      <main className="mx-auto w-[92vw] px-4 pt-24 md:w-[85vw] md:px-6 lg:w-[70vw] lg:pt-28">
+        {route === 'home' ? (
+          <>
+            <section className="grid items-center gap-10 py-10 lg:grid-cols-[1.08fr_0.92fr]">
+              <div className="rounded-[32px] border border-black/10 bg-white/90 p-8 shadow-soft">
+                <p className="text-xs uppercase tracking-[0.4em] text-accent">Engineering Biology • IIT Bombay</p>
+                <h1 className="mt-4 font-display text-4xl leading-tight md:text-6xl">
+                  Student-led synthetic biology, built for real-world impact.
+                </h1>
+                <p className="mt-6 text-lg text-muted">
+                  iGEM IIT Bombay is a student-led synthetic biology team representing IIT Bombay at the annual iGEM
+                  competition with coordinated wet lab, dry lab, IHP, design, and web development efforts.
+                </p>
+                <div className="mt-8 grid gap-4 md:grid-cols-3">
+                  {keyStats.map((item) => (
+                    <article key={item.label} className="rounded-2xl border border-black/10 bg-white p-4">
+                      <p className="text-2xl font-semibold text-ink">{item.value}</p>
+                      <p className="text-xs uppercase tracking-[0.2em] text-muted">{item.label}</p>
+                    </article>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-[32px] border border-black/10 bg-white/90 p-6 shadow-soft">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Snapshot</p>
-            <h3 className="mt-4 font-display text-2xl">iGEM IIT Bombay at a glance</h3>
-            <p className="mt-3 text-sm text-muted">
-              A structured snapshot of the 2025 cycle, with quick access to official documentation and announcements.
-            </p>
-            <div className="mt-5 grid gap-3">
-              {focusPoints.map((item) => (
-                <div key={item.title} className="rounded-2xl border border-black/10 bg-white/90 p-4 shadow-soft">
-                  <p className="text-xs uppercase tracking-[0.25em] text-accent">{item.title}</p>
-                  <p className="mt-2 text-sm text-muted">{item.text}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-5 flex flex-wrap gap-3">
-              {resourceLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full border border-black/10 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted transition hover:-translate-y-0.5 hover:shadow-lg"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
+              </div>
 
-        <section className="py-10 md:py-14" id="project">
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-            <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-accent">2025 Project Spotlight</p>
-              <h2 className="mt-4 font-display text-3xl md:text-4xl">Engineered protease therapy for biofilm infections.</h2>
-              <p className="mt-5 text-muted">
-                The 2025 project targets biofilm-associated infections through an engineered protease solution designed to
-                degrade tough biofilms and eliminate dormant bacteria, including infections linked to biomedical devices
-                like catheters, implants, and prosthetic joints.
-              </p>
-              <div className="mt-6 grid gap-4 md:grid-cols-2">
-                {[
-                  {
-                    title: 'Problem',
-                    text: 'Biofilms protect bacteria from antibiotics, causing persistent infections.'
-                  },
-                  {
-                    title: 'Approach',
-                    text: 'A safe, targeted protease system aimed at disrupting biofilm matrices.'
-                  },
-                  {
-                    title: 'Impact',
-                    text: 'A sustainable therapeutic option for difficult-to-treat infections.'
-                  },
-                  {
-                    title: 'Safety',
-                    text: 'Biosafety-first implementation and clear clinical deployment pathways.'
-                  }
-                ].map((card) => (
-                  <article
-                    key={card.title}
-                    className="rounded-2xl border border-black/10 bg-white/90 p-5 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-                  >
-                    <h3 className="font-display text-lg">{card.title}</h3>
-                    <p className="mt-2 text-sm text-muted">{card.text}</p>
+              <article className="rounded-[32px] border border-black/10 bg-white/90 p-6 shadow-soft">
+                <p className="text-xs uppercase tracking-[0.32em] text-accent">Team Picture</p>
+                <h2 className="mt-3 font-display text-2xl">Landing photo slot</h2>
+                <p className="mt-2 text-sm text-muted">
+                  Reserved area for the official iGEM IIT Bombay team photo on the home landing section.
+                </p>
+                <div className="mt-5 grid h-72 place-items-center rounded-2xl border border-dashed border-black/20 bg-[#f3f7fa] text-xs uppercase tracking-[0.22em] text-muted">
+                  Team Photo Placeholder
+                </div>
+              </article>
+            </section>
+
+            <section className="py-10 md:py-12">
+              <div className="max-w-2xl">
+                <p className="text-xs uppercase tracking-[0.38em] text-accent">Subteams</p>
+                <h2 className="mt-4 font-display text-3xl md:text-4xl">Short overview on home</h2>
+              </div>
+              <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {subteamConfig.map((team) => (
+                  <article key={`home-short-${team.key}`} className="rounded-2xl border border-black/10 bg-white/90 p-5 shadow-soft">
+                    <h3 className="font-display text-2xl">{team.label}</h3>
+                    <p className="mt-2 text-sm text-muted">{team.short}</p>
+                    <button
+                      type="button"
+                      onClick={() => navigate(team.key)}
+                      className="mt-4 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-ink transition-shadow hover:shadow-[0_12px_24px_rgba(31,122,140,0.24)]"
+                    >
+                      View Details
+                    </button>
                   </article>
                 ))}
               </div>
-            </div>
-            <div className="rounded-3xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg">
-              <p className="text-xs uppercase tracking-[0.3em] text-accent">Project Scope</p>
-              <h3 className="mt-4 font-display text-2xl">Biofilm infections in clinical settings</h3>
-              <p className="mt-3 text-sm text-muted">
-                The 2025 biofilm infection project was developed under the guidance of Prof. Kiran Kondabagil (BSBE) and
-                Prof. Saket Choudhary (KCDH).
-              </p>
-              <ul className="mt-6 space-y-3 text-sm text-muted">
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-accent" />
-                  <span>Biomedical device infections: catheters, breast implants, prosthetic joints.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-[#3aa6b9]" />
-                  <span>Clinical contexts: cystic fibrosis and contact lens infections.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-accent2" />
-                  <span>Goal: degrade biofilm matrix and remove dormant bacteria safely.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
+            </section>
 
-        <section className="py-10 md:py-14" id="achievements">
-          <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Achievements</p>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl">Recognized at the iGEM Grand Jamboree.</h2>
-          </div>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {achievements.map((item) => (
-              <article
-                key={item.title}
-                className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-              >
-                <span className="inline-flex rounded-full bg-[rgba(31,122,140,0.12)] px-3 py-1 text-xs font-semibold text-accent">
-                  {item.year}
-                </span>
-                <h3 className="mt-4 font-display text-xl">{item.title}</h3>
-                <p className="mt-2 text-sm text-muted">{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-10 md:py-14" id="pipeline">
-          <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Pipeline</p>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl">From problem to prototype.</h2>
-          </div>
-          <div className="mt-8 grid gap-6 lg:grid-cols-[0.35fr_1fr]">
-            <div className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg">
-              <p className="text-sm text-muted">
-                A structured roadmap that blends experimentation, modeling, and human practices.
-              </p>
-              <div className="mt-6 h-20 rounded-xl bg-gradient-to-br from-[rgba(31,122,140,0.12)] to-[rgba(226,160,83,0.08)]" />
-            </div>
-            <ol className="space-y-5">
-              {pipeline.map((step, idx) => (
-                <li
-                  key={step.title}
-                  className="grid gap-3 rounded-2xl border border-black/10 bg-white/90 p-5 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg md:grid-cols-[44px_1fr]"
-                >
-                  <div className="grid h-11 w-11 place-items-center rounded-full bg-[rgba(31,122,140,0.12)] text-sm font-semibold text-accent">
-                    {String(idx + 1).padStart(2, '0')}
-                  </div>
-                  <div>
-                    <h3 className="font-display text-lg">{step.title}</h3>
-                    <p className="text-sm text-muted">{step.text}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <section className="py-10 md:py-14" id="subteams">
-          <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Subteams</p>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl">Three pillars, one mission.</h2>
-          </div>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: 'Wet Lab',
-                text: 'Experimental design, cloning, validation, and biosafety protocols.'
-              },
-              {
-                title: 'Dry Lab',
-                text: 'Modeling, computational analysis, and data visualization.'
-              },
-              {
-                title: 'Human Practices',
-                text: 'Ethics, policy review, stakeholder interviews, and outreach.'
-              }
-            ].map((item) => (
-              <article
-                key={item.title}
-                className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-              >
-                <h3 className="font-display text-xl">{item.title}</h3>
-                <p className="mt-2 text-sm text-muted">{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-10 md:py-14" id="gallery">
-          <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Gallery</p>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl">Team + campus highlights.</h2>
-            <p className="mt-3 text-muted">Official IIT Bombay coverage plus campus context.</p>
-          </div>
-          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {gallery.map((photo) => (
-              <figure
-                key={photo.src}
-                className="rounded-2xl border border-black/10 bg-white/90 p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-              >
-                <div className="flex h-56 w-full items-center justify-center rounded-xl border border-dashed border-black/15 bg-white/70 text-xs uppercase tracking-[0.25em] text-muted">
-                  Image Placeholder
-                </div>
-                <figcaption className="mt-3 text-xs text-muted">{photo.caption}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-10 md:py-14" id="wiki">
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
-            <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-accent">iGEM Wiki</p>
-              <h2 className="mt-4 font-display text-3xl md:text-4xl">Our full wiki is the source of record.</h2>
-              <p className="mt-4 text-muted">
-                The iGEM wiki hosts full technical details, experiments, results, and documentation for the team.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                {wikiMap.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full border border-black/10 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted"
-                  >
-                    {item}
-                  </span>
-                ))}
+            <section ref={timelineRef} className="timeline-wrap py-10 md:py-14">
+              <div className="max-w-2xl">
+                <p className="text-xs uppercase tracking-[0.38em] text-accent">Timeline</p>
+                <h2 className="mt-4 font-display text-3xl md:text-4xl">Project calendar with animated milestones</h2>
               </div>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-3xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg">
-                <p className="text-xs uppercase tracking-[0.3em] text-accent">2025 Wiki</p>
-                <h3 className="mt-4 font-display text-xl">Current season documentation</h3>
-                <p className="mt-3 text-sm text-muted">
-                  Full protocols, results, and team documentation for the 2025 season.
-                </p>
-                <a
-                  className="mt-6 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-                  href="https://2025.igem.wiki/iit-bombay/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Open 2025 Wiki
-                </a>
-              </div>
-              <div className="rounded-3xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg">
-                <p className="text-xs uppercase tracking-[0.3em] text-accent">2024 Wiki</p>
-                <h3 className="mt-4 font-display text-xl">Previous season archive</h3>
-                <p className="mt-3 text-sm text-muted">
-                  Review the 2024 project, human practices, and contributions.
-                </p>
-                <a
-                  className="mt-6 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-                  href="https://2024.igem.wiki/iit-bombay/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Open 2024 Wiki
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-10 md:py-14" id="press">
-          <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Press & Recognition</p>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl">Featured by IIT Bombay and IITB Tech Council.</h2>
-          </div>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {press.map((item) => (
-              <a
-                key={item.title}
-                href={item.href}
-                className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <span className="text-xs uppercase tracking-[0.2em] text-accent">{item.tag}</span>
-                <h3 className="mt-3 font-display text-xl">{item.title}</h3>
-                <p className="mt-2 text-sm text-muted">{item.text}</p>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        <section className="py-10 md:py-14" id="contact">
-          <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Contact</p>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl">Let’s build the future of biology together.</h2>
-          </div>
-          <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_1.2fr]">
-            <div className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg">
-              <div className="flex items-center gap-4">
-                <img
-                  src={iitbLogo}
-                  alt="iGEM IIT Bombay logo"
-                  className="h-12 w-12 rounded-xl object-contain mix-blend-multiply"
-                />
-                <div>
-                  <p className="font-semibold">iGEM IIT Bombay</p>
-                  <p className="text-sm text-muted">Tech Team · IIT Bombay</p>
+              <div className="relative mt-10">
+                <div className="tl-line absolute bottom-0 left-4 top-0 w-[2px] bg-black/25 md:left-1/2 md:-translate-x-1/2" />
+                <div className="space-y-7">
+                  {timelineEvents.map((event, index) => (
+                    <article key={`${event.year}-${event.title}`} className="relative grid gap-4 md:grid-cols-2 md:gap-10">
+                      <div className={`${index % 2 === 0 ? 'md:pr-14' : 'md:col-start-2 md:pl-14'}`}>
+                        <div className="tl-card rounded-2xl border border-black/10 bg-white/92 p-5 shadow-soft">
+                          <p className="text-sm font-semibold text-accent">{event.subtitle}</p>
+                          <h3 className="mt-1 font-display text-2xl">{event.title}</h3>
+                          <p className="mt-3 text-sm text-muted">{event.text}</p>
+                        </div>
+                      </div>
+                      <div className="tl-dot absolute left-4 top-7 h-4 w-4 -translate-x-1/2 rounded-full border-4 border-white bg-[#a81919] md:left-1/2" />
+                      <p className="ml-10 text-sm font-semibold text-ink md:absolute md:left-1/2 md:top-6 md:ml-0 md:-translate-x-[calc(100%+2.8rem)]">
+                        {event.year}
+                      </p>
+                    </article>
+                  ))}
                 </div>
               </div>
-              <div className="mt-5 space-y-2 text-sm text-muted">
-                <p>IIT Bombay, Mumbai, Maharashtra</p>
-                <p>Email: igem@iitb.ac.in</p>
-                <p>iGEM Wiki: 2024.igem.wiki/iit-bombay</p>
-              </div>
-            </div>
-            <form className="grid gap-4 rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg">
-              <label className="text-sm text-muted">
-                Name
-                <input
-                  className="mt-2 w-full rounded-xl border-black/10 bg-white/80 text-ink placeholder:text-muted"
-                  type="text"
-                  name="name"
-                  placeholder="Your name"
-                />
-              </label>
-              <label className="text-sm text-muted">
-                Email
-                <input
-                  className="mt-2 w-full rounded-xl border-black/10 bg-white/80 text-ink placeholder:text-muted"
-                  type="email"
-                  name="email"
-                  placeholder="you@example.com"
-                />
-              </label>
-              <label className="text-sm text-muted">
-                Message
-                <textarea
-                  className="mt-2 w-full rounded-xl border-black/10 bg-white/80 text-ink placeholder:text-muted"
-                  rows="4"
-                  name="message"
-                  placeholder="Tell us about your idea"
-                />
-              </label>
-              <button className="rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg">
-                Send Message
-              </button>
-            </form>
-          </div>
-        </section>
+            </section>
+          </>
+        ) : (
+          <TeamDetailPage team={activeTeam} onGoHome={() => navigate('home')} />
+        )}
       </main>
 
-      <footer className="border-t border-black/10 bg-[#e7f1f6] py-8">
+      <footer className="mt-10 border-t border-black/10 bg-[#e7f1f6] py-8">
         <div className="mx-auto w-[92vw] px-4 md:w-[85vw] md:px-6 lg:w-[70vw]">
-          <div className="grid gap-6 md:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-3">
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <img
-                  src={iitbLogo}
-                  alt="iGEM IIT Bombay logo"
-                  className="h-10 w-10 rounded-xl object-contain mix-blend-multiply"
-                />
+                <img src={iitbLogo} alt="iGEM IIT Bombay logo" className="h-10 w-10 rounded-xl object-contain mix-blend-multiply" />
                 <div>
                   <p className="font-semibold text-ink">iGEM IIT Bombay</p>
                   <p className="text-xs text-muted">Synthetic Biology Team</p>
                 </div>
               </div>
-              <p className="text-sm text-muted">
-                Student-led team representing IIT Bombay at the annual iGEM competition.
-              </p>
+              <p className="text-sm text-muted">Student-led team representing IIT Bombay at the annual iGEM competition.</p>
             </div>
             <div className="space-y-3 text-sm text-muted">
-              <p className="font-semibold text-ink">Quick Links</p>
-              <a
-                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
-                href="#project"
-              >
-                Project
-              </a>
-              <a
-                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
-                href="#achievements"
-              >
-                Achievements
-              </a>
-              <a
-                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
-                href="#pipeline"
-              >
-                Pipeline
-              </a>
-              <a
-                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
-                href="#wiki"
-              >
-                Wiki
-              </a>
-            </div>
-            <div className="space-y-3 text-sm text-muted">
-              <p className="font-semibold text-ink">Resources</p>
-              <a
-                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
-                href="#press"
-              >
-                Press
-              </a>
-              <a
-                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
-                href="#gallery"
-              >
-                Gallery
-              </a>
-              <a
-                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
-                href="https://2024.igem.wiki/iit-bombay/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                iGEM Wiki
-              </a>
-              <a
-                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
-                href="mailto:igem@iitb.ac.in"
-              >
-                Email Us
-              </a>
+              <p className="font-semibold text-ink">Subteams</p>
+              {subteamConfig.map((team) => (
+                <button
+                  key={`footer-${team.key}`}
+                  type="button"
+                  onClick={() => navigate(team.key)}
+                  className="block rounded-md px-1 py-0.5 text-left transition-shadow hover:shadow-[0_8px_18px_rgba(31,122,140,0.22)]"
+                >
+                  {team.label}
+                </button>
+              ))}
             </div>
             <div className="space-y-3 text-sm text-muted">
               <p className="font-semibold text-ink">Contact</p>
               <p>IIT Bombay, Mumbai</p>
-              <p>igem@iitb.ac.in</p>
-              <p>2024.igem.wiki/iit-bombay</p>
+              <a href="mailto:igem@iitb.ac.in" className="block w-fit underline-offset-4 hover:underline">
+                igem@iitb.ac.in
+              </a>
+              <a href="https://2025.igem.wiki/iit-bombay/" target="_blank" rel="noreferrer" className="block w-fit underline-offset-4 hover:underline">
+                2025 iGEM Wiki
+              </a>
             </div>
           </div>
           <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-sm text-muted">
             <p>© 2026 iGEM IIT Bombay. All rights reserved.</p>
-            <div className="flex gap-4">
-              <a href="#about">Back to top</a>
-              <a href="mailto:igem@iitb.ac.in">Email</a>
-            </div>
+            <button type="button" onClick={() => navigate('home')} className="transition-shadow hover:shadow-[0_8px_18px_rgba(31,122,140,0.22)]">
+              Back to top
+            </button>
           </div>
         </div>
       </footer>
