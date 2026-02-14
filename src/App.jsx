@@ -155,6 +155,13 @@ const subsystemData = [
         image: memberPhotos.webDevelopment.nisargRathod,
         imagePosition: 'center 3%'
       },
+       {
+        name: 'Aryan Prasad',
+        role: 'Web Developer',
+        linkedin: 'https://www.linkedin.com/in/aryan-prasad-238391376/',
+        image: memberPhotos.webDevelopment.aryanPrasad,
+        imagePosition: 'center 37%'
+      },
     ]
   }
 ];

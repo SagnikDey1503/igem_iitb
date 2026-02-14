@@ -1,6 +1,7 @@
 
 import sagnikDey from './sagnik_dey.png';
 import nisargRathod from './nisarg-rathod.png';
+import aryanPrasad from './aryan-prasad.jpg';
 const memberPhotos = {
   wetLab: {
     
@@ -13,7 +14,8 @@ const memberPhotos = {
   },
   webDevelopment: {
     sagnikDey,
-    nisargRathod
+    nisargRathod,
+    aryanPrasad
   }
 };
 
