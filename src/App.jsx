@@ -522,7 +522,7 @@ export default function App() {
                 ))}
               </div>
             </div>
-             <div className="max-w-3xl   bg-transparent ">
+             <div className="max-w-2xl   bg-transparent ">
               <div className="mt-6 flex ">
                 <a
                   href="#subteams"
@@ -699,7 +699,7 @@ export default function App() {
           </div>
         </section>
         <section className="py-10 md:py-14" id="achievements">
-          <div className="max-w-3xl">
+          <div className="max-w-2xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Achievements</p>
             <h2 className="mt-4 font-display text-3xl md:text-4xl">Two years of learning, innovation, and impact.</h2>
           </div>
