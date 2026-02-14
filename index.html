@@ -86,41 +86,10 @@
     </style>
   </head>
 
-  <body>
-    <!-- Loader -->
-    <div class="app-loader" id="app-loader">
-      <div class="loader-circle"></div>
-      <div class="loader-text">
-        Loading
-        <span class="dots">
-          <span>.</span>
-          <span>.</span>
-          <span>.</span>
-        </span>
-      </div>
-    </div>
+<body>
+  <div id="root"></div>
 
-    <!-- React Root -->
-    <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
 
-    <!-- Minimum 1.5 sec loader -->
-    <script>
-      const MIN_TIME = 1500;
-      const startTime = Date.now();
-
-      window.addEventListener("load", () => {
-        const loader = document.getElementById("app-loader");
-        const elapsed = Date.now() - startTime;
-        const remaining = Math.max(MIN_TIME - elapsed, 0);
-
-        setTimeout(() => {
-          loader.classList.add("hidden");
-          setTimeout(() => loader.remove(), 400);
-        }, remaining);
-      });
-    </script>
-
-    <!-- Vite Dev -->
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
 </html>

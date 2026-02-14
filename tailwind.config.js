@@ -1,11 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
         ink: "#1f2533",
-        muted: "#5f6a7a",
+        muted: "#465466",
         accent: "#1f7a8c",
         accent2: "#e2a053"
       },

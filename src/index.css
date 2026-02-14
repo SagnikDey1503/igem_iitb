@@ -19,9 +19,9 @@ body {
   background-image:
     linear-gradient(
       120deg,
-      rgba(169, 195, 202, 0.158),
-      rgba(169, 188, 195, 0.27),
-      rgba(75, 86, 90, 0.358)
+      rgba(169, 195, 202, 0.05),
+      rgba(169, 188, 195, 0.08),
+      rgba(75, 86, 90, 0.12)
     ),
     url("./assets/merged-image.png");
   background-repeat: no-repeat, repeat-y;
@@ -31,12 +31,24 @@ body {
   min-height: 100vh;
 }
 
+.dark body {
+  background-color: #0a0e14;
+  background-image:
+    linear-gradient(
+      120deg,
+      rgba(0, 0, 0, 0.85),
+      rgba(0, 0, 0, 0.9),
+      rgba(0, 0, 0, 0.95)
+    ),
+    url("./assets/merged-image.png");
+}
+
 @media (max-width: 768px) {
   body {
     background-image:
-      linear-gradient(90deg, rgba(31, 122, 140, 0.1) 1px, transparent 1px),
-      linear-gradient(0deg, rgba(31, 122, 140, 0.1) 1px, transparent 1px),
-      radial-gradient(circle at 20% 10%, #fff6e9 0%, #f7f4ef 55%, #f1f6f8 100%);
+      linear-gradient(90deg, rgba(31, 122, 140, 0.09) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(31, 122, 140, 0.09) 1px, transparent 1px),
+      radial-gradient(circle at 22% 12%, #fff9ef 0%, #f8f3e9 52%, #f2f7fa 100%);
     background-size: 36px 36px, 36px 36px, cover;
     background-position: center, center, center;
     background-attachment: scroll;

@@ -8,12 +8,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </React.StrictMode>
 );
-
-const loader = document.getElementById('app-loader');
-if (loader) {
-  const minDelay = 2000;
-  setTimeout(() => {
-    loader.classList.add('is-hidden');
-    setTimeout(() => loader.remove(), 600);
-  }, minDelay);
-}
