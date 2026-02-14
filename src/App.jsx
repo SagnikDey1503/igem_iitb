@@ -3,9 +3,12 @@ import iitbLogo from './assets/iitb.webp';
 import igem2024Image from './assets/2024_igem.png';
 import igem2025Image from './assets/2025_igem.png';
 import groundPicImage from './assets/ground_pic.png';
-import onePic from './assets/onePic.png';
-import twoPic from './assets/twoPic.png';
-import { Linkedin, Instagram, Facebook } from "lucide-react";
+import onePicImage from './assets/onePic.png';
+import webDevPic from './assets/web_pic.png';
+import memberPhotos from './assets/members';
+import wetLab from './assets/wetLab.png';
+import dryLab from './assets/dryLabPic.png';
+import { Linkedin, Instagram } from "lucide-react";
 
 
 const stats = [
@@ -70,71 +73,9 @@ const achievements = [
   }
 ];
 
-const pipeline = [
-  {
-    title: 'Problem discovery',
-    text: 'Clinical interviews and literature review identify the highest-impact biofilm infection use cases.'
-  },
-  {
-    title: 'Circuit design',
-    text: 'Protease selection, safety checks, and modular genetic circuit planning.'
-  },
-  {
-    title: 'Prototype build',
-    text: 'Wet-lab validation with measurable biofilm disruption endpoints.'
-  },
-  {
-    title: 'Modeling + analysis',
-    text: 'Dry lab modeling to optimize kinetics and stability.'
-  },
-  {
-    title: 'Human practices',
-    text: 'Ethics review and stakeholder feedback for responsible deployment.'
-  }
-];
 
-const gallery = [
-  {
-    src: 'https://www.iitb.ac.in/sites/www.iitb.ac.in/files/styles/slick_media/public/2025-11/IIT%20Bombay%27s%20iGEM%20Team%20secures%20Silver%20Medal%20at%20Paris%20Competition_1.jpg?itok=j9do2yH2',
-    alt: 'Team iGEM IIT Bombay at the Paris competition',
-    caption: 'Official IIT Bombay team photo from iGEM 2025 coverage.'
-  },
-  {
-    src: 'https://www.iitb.ac.in/sites/www.iitb.ac.in/files/styles/slick_media/public/2025-11/IIT%20Bombay%27s%20iGEM%20Team%20secures%20Silver%20Medal%20at%20Paris%20Competition_2.jpg?itok=J8c806Sa',
-    alt: 'Team iGEM IIT Bombay celebrating at iGEM 2025',
-    caption: 'IIT Bombay news coverage from the 2025 silver medal win.'
-  },
-  {
-    src: 'https://commons.wikimedia.org/wiki/Special:FilePath/IIT_Bombay_Main_Building.jpg',
-    alt: 'IIT Bombay main building',
-    caption: 'IIT Bombay main building (Wikimedia Commons).'
-  },
-  {
-    src: 'https://commons.wikimedia.org/wiki/Special:FilePath/IITBConvocationHall.JPG',
-    alt: 'IIT Bombay Convocation Hall',
-    caption: 'IIT Bombay Convocation Hall (Wikimedia Commons).'
-  },
-  {
-    src: 'https://commons.wikimedia.org/wiki/Special:FilePath/IITCampusPano.JPG',
-    alt: 'Panoramic view of IIT Bombay campus',
-    caption: 'IIT Bombay campus panorama (Wikimedia Commons).'
-  },
-  {
-    src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Powai_Lake_H14_IIT_Bombay.jpg',
-    alt: 'Powai Lake near IIT Bombay hostels',
-    caption: 'Powai Lake near IIT Bombay hostels (Wikimedia Commons).'
-  },
-  {
-    src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Powai_lake_iit_bombay.jpg',
-    alt: 'Powai Lake view at IIT Bombay campus',
-    caption: 'Powai Lake, IIT Bombay campus (Wikimedia Commons).'
-  },
-  {
-    src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Biology_lab.jpg',
-    alt: 'Biology laboratory work scene',
-    caption: 'Biology lab scene (Wikimedia Commons).'
-  }
-];
+
+
 
 const highlightGallery = [
   {
@@ -151,16 +92,6 @@ const highlightGallery = [
     src: groundPicImage,
     alt: 'Ground photo highlight',
     caption: 'Team ground photo highlight.'
-  },
-   {
-    src: onePic,
-    alt: '',
-    caption: ''
-  },
-   {
-    src: twoPic,
-    alt: '',
-    caption: 'hghg'
   }
 ];
 
@@ -170,12 +101,12 @@ const subsystemData = [
     anchorId: 'subsystem-wet-lab',
     title: 'Wet Lab',
     text: 'Experimental design, cloning, validation, and biosafety protocols.',
-    role: 'Experimental Biology',
+    details: 'Designs and executes the full experimental pipeline: construct assembly, strain validation, assay development, and biosafety checks for reproducible in lab results.',
+    role: 'Wet Lab',
+    coverImage: wetLab,
+    coverAlt: 'Wet Lab team working in the lab',
     members: [
-      { name: 'Aarav Mehta', role: 'Wet Lab Lead', linkedin: 'https://www.linkedin.com/' },
-      { name: 'Riya Sharma', role: 'Molecular Biology', linkedin: 'https://www.linkedin.com/' },
-      { name: 'Kabir Nair', role: 'Assay Development', linkedin: 'https://www.linkedin.com/' },
-      { name: 'Sana Khan', role: 'Biosafety and Validation', linkedin: 'https://www.linkedin.com/' }
+     
     ]
   },
   {
@@ -183,12 +114,12 @@ const subsystemData = [
     anchorId: 'subsystem-dry-lab',
     title: 'Dry Lab',
     text: 'Modeling, computational analysis, and data visualization.',
-    role: 'Modeling and Analytics',
+    details: 'Builds mathematical and computational models, performs sensitivity analyses, and supports decision making with simulation driven insights and clear data interpretation.',
+    role: 'Dry Lab',
+    coverImage: dryLab,
+    coverAlt: 'Dry Lab team at iGEM',
     members: [
-      { name: 'Neel Rao', role: 'Dry Lab Lead', linkedin: 'https://www.linkedin.com/' },
-      { name: 'Ishita Das', role: 'Kinetic Modeling', linkedin: 'https://www.linkedin.com/' },
-      { name: 'Arjun Patel', role: 'Data Analytics', linkedin: 'https://www.linkedin.com/' },
-      { name: 'Maya Iyer', role: 'Simulation and Visuals', linkedin: 'https://www.linkedin.com/' }
+     
     ]
   },
   {
@@ -196,12 +127,12 @@ const subsystemData = [
     anchorId: 'subsystem-human-practices-design',
     title: 'Human Practices & Design',
     text: 'Ethics, policy review, stakeholder interviews, outreach and design.',
+    details: 'Leads stakeholder engagement, policy and ethics review, media and communication design, and outreach strategy to ensure the project is socially responsible, ethically sound, user centered, and effectively communicated for real world deployment.',
     role: 'Human Practices and Design',
+    coverImage: onePicImage,
+    coverAlt: 'Human Practices and Design related visual',
     members: [
-      { name: 'Vani Kulkarni', role: 'IHP Lead', linkedin: 'https://www.linkedin.com/' },
-      { name: 'Rahul Menon', role: 'Policy and Ethics', linkedin: 'https://www.linkedin.com/' },
-      { name: 'Tanvi Gupta', role: 'Design Systems', linkedin: 'https://www.linkedin.com/' },
-      { name: 'Pooja Sethi', role: 'Content and Outreach', linkedin: 'https://www.linkedin.com/' }
+     
     ]
   },
   {
@@ -209,40 +140,26 @@ const subsystemData = [
     anchorId: 'subsystem-web-development',
     title: 'Web Development',
     text: 'Building websites and interactive experiences to document and communicate the research.',
-    role: 'Frontend and Wiki',
+    details: 'Owns technical storytelling through website architecture, UI implementation, responsive layouts, and wiki delivery for transparent and accessible project documentation.',
+    role: 'Web Development',
+    coverImage: webDevPic,
+    coverAlt: 'Web Development team visual',
     members: [
-      { name: 'Aditya Sen', role: 'Web Lead', linkedin: 'https://www.linkedin.com/' },
-      { name: 'Kritika Jain', role: 'Frontend UI', linkedin: 'https://www.linkedin.com/' },
-      { name: 'Manav Shah', role: 'Interactions', linkedin: 'https://www.linkedin.com/' },
-      { name: 'Simran Kaur', role: 'QA and Accessibility', linkedin: 'https://www.linkedin.com/' }
+      {
+        name: 'Sagnik Dey',
+        role: 'Web Lead',
+        linkedin: 'https://www.linkedin.com/in/sagnik-dey-56a2a31b0/',
+        image: memberPhotos.webDevelopment.sagnikDey,
+        imagePosition: 'center 35%'
+      },
+      {
+        name: 'Nisarg Rathod',
+        role: 'Web Developer',
+        linkedin: 'https://www.linkedin.com/in/nisarg-rathod-63b044318/',
+        image: memberPhotos.webDevelopment.nisargRathod,
+        imagePosition: 'center 3%'
+      },
     ]
-  }
-];
-
-const teamGalleryPeople = [
-  {
-    name: 'Wet Lab Team',
-    role: 'Experimental Biology',
-    image: gallery[0].src,
-    href: '#/wet-lab'
-  },
-  {
-    name: 'Dry Lab Team',
-    role: 'Modeling and Analytics',
-    image: gallery[1].src,
-    href: '#/dry-lab'
-  },
-  {
-    name: 'IHP Team',
-    role: 'Human Practices and Design',
-    image: gallery[7].src,
-    href: '#/human-practices-design'
-  },
-  {
-    name: 'Web Development Team',
-    role: 'Frontend and Wiki',
-    image: gallery[4].src,
-    href: '#/web-development'
   }
 ];
 
@@ -272,6 +189,15 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [route]);
 
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [menuOpen]);
+
   const scrollToSection = (sectionId) => {
     const target = document.getElementById(sectionId);
     if (!target) {
@@ -296,6 +222,21 @@ export default function App() {
     scrollToSection(sectionId);
   };
 
+  const mobilePrimaryLinks = [
+    { label: 'About', href: '#about' },
+    { label: 'Project', href: '#project' },
+    { label: 'Achievements', href: '#achievements' },
+    { label: 'Wiki', href: '#wiki' },
+    { label: 'Subsystems', href: '#subteams' },
+    { label: 'Events', href: '#events' },
+    { label: 'Gallery', href: '#gallery' }
+  ];
+
+  const mobileQuickLinks = [
+    { label: 'Visit 2025 Wiki', href: 'https://2025.igem.wiki/iit-bombay/', external: true },
+    { label: 'Visit 2024 Wiki', href: 'https://2024.igem.wiki/iit-bombay/', external: true }
+  ];
+
   return (
     <div className="relative overflow-x-hidden">
       <header className="fixed top-0 z-30 w-full">
@@ -317,7 +258,6 @@ export default function App() {
               <nav className="ml-4 hidden min-w-0 flex-1 items-center justify-between text-xs text-muted xl:flex xl:text-sm">
                 {[
                   { label: 'About', href: '#about' },
-                   { label: 'Team', href: '#team-gallery' },
                   { label: 'Project', href: '#project' },
                   { label: 'Achievements', href: '#achievements' },
                   { label: 'Wiki', href: '#wiki' },
@@ -352,60 +292,72 @@ export default function App() {
             </button>
           </div>
 
-          <div className={`xl:hidden ${menuOpen ? 'block' : 'hidden'}`}>
-            <div className="mt-2 flex flex-col gap-3 rounded-2xl border border-black/10 bg-white/75 px-4 py-4 text-center text-sm text-muted shadow-lg backdrop-blur-md">
-              {[
-                { label: 'About', href: '#about' },
-                { label: 'Project', href: '#project' },
-                { label: 'Achievements', href: '#achievements' },
-                { label: 'Wiki', href: '#wiki' },
-                { label: 'Subsystems', href: '#subteams' },
-                { label: 'Events', href: '#events' },
-                { label: 'Gallery', href: '#gallery' },
-                { label: 'Team', href: '#team-gallery' }
-              ].map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="rounded-xl border border-black/10 bg-white/95 px-4 py-3 text-ink shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-                  onClick={(event) => {
-                    setMenuOpen(false);
-                    handleNavbarClick(event, item.href);
-                  }}
-                >
-                  {item.label}
-                </a>
-              ))}
+          {menuOpen ? (
+            <div className="fixed inset-0 z-40 xl:hidden">
+              <button
+                type="button"
+                aria-label="Close menu"
+                className="absolute inset-0 bg-[rgba(255,255,255,0.45)] backdrop-blur-[2px]"
+                onClick={() => setMenuOpen(false)}
+              />
+              <aside className="absolute right-0 top-0 h-full w-[82vw] max-w-[360px] overflow-y-auto border-l border-black/10 bg-[rgba(255,255,255,0.92)] px-4 py-5 text-ink shadow-2xl">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-semibold uppercase tracking-[0.36em] text-accent">Navigation</p>
+                  <button
+                    type="button"
+                    className="rounded-full border border-black/15 bg-white px-3.5 py-1.5 text-sm font-semibold text-ink"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Close
+                  </button>
+                </div>
+
+                <div className="mt-5 border-t border-black/10 pt-5">
+                  <div className="space-y-2.5">
+                    {mobilePrimaryLinks.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        className="block rounded-2xl border border-black/10 bg-white/95 px-4 py-3 text-base font-semibold text-ink transition hover:border-[#61b8d0] hover:shadow-[0_0_14px_rgba(58,173,207,0.18)]"
+                        onClick={(event) => {
+                          setMenuOpen(false);
+                          handleNavbarClick(event, item.href);
+                        }}
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-6 border-t border-black/10 pt-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.32em] text-muted">iGEM wiki</p>
+                  <div className="mt-3 space-y-2.5">
+                    {mobileQuickLinks.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        target={item.external ? '_blank' : undefined}
+                        rel={item.external ? 'noreferrer' : undefined}
+                        className="block rounded-2xl border border-black/10 bg-white/95 px-4 py-3 text-base font-semibold text-ink transition hover:border-[#61b8d0] hover:shadow-[0_0_14px_rgba(58,173,207,0.18)]"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </aside>
             </div>
-          </div>
+          ) : null}
         </div>
       </header>
 
       <main className="mx-auto w-[92vw] px-4 pt-20 md:w-[85vw] md:px-6 lg:w-[70vw] lg:pt-24 md:pt-24 lg:pt-28">
         {selectedSubsystem ? (
-          <section className="py-10 md:py-14" id={selectedSubsystem.anchorId}>
-            <div className="max-w-3xl rounded-3xl border border-black/10 bg-white/90 p-8 shadow-soft">
-              <p className="text-xs uppercase tracking-[0.35em] text-accent">Subsystem Page</p>
-              <h2 className="mt-4 font-display text-4xl">{selectedSubsystem.title}</h2>
-              <p className="mt-3 text-lg text-muted">{selectedSubsystem.text}</p>
-              <p className="mt-2 text-sm font-semibold text-ink">Focus: {selectedSubsystem.role}</p>
-              <div className="mt-6 flex gap-3">
-                <a
-                  href="#subteams"
-                  className="inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-sm font-semibold text-white shadow-soft transition hover:shadow-lg"
-                >
-                  Back to Subsystems
-                </a>
-                <a
-                  href="#team-gallery"
-                  className="inline-flex rounded-full border border-black/10 bg-white px-5 py-2 text-sm font-semibold text-ink transition hover:shadow-lg"
-                  onClick={(event) => handleNavbarClick(event, '#team-gallery')}
-                >
-                  Open Team Gallery
-                </a>
-              </div>
-            </div>
-            <div className="mt-8 rounded-3xl border border-black/10 bg-white/90 p-6 shadow-soft md:p-7">
+          <section className="py-14 md:py-6" id={selectedSubsystem.anchorId}>
+           
+            <div className="mt-0 rounded-3xl  bg-transparent ">
               <p className="text-xs uppercase tracking-[0.3em] text-accent">Team Members</p>
               <h3 className="mt-3 font-display text-2xl">Meet the {selectedSubsystem.title} members</h3>
               <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -420,6 +372,7 @@ export default function App() {
                           src={member.image}
                           alt={member.name}
                           className="h-full w-full object-cover"
+                          style={{ objectPosition: member.imagePosition || 'center center' }}
                         />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center">
@@ -435,18 +388,36 @@ export default function App() {
                       href={member.linkedin}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-4 inline-flex text-sm font-semibold text-accent transition hover:underline hover:underline-offset-4"
+                      className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent transition hover:underline hover:underline-offset-4"
                     >
-                      View LinkedIn -&gt;
+                      <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        className="h-4 w-4 fill-current"
+                      >
+                        <path d="M22 0H2C.9 0 0 .9 0 2v20c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2zM7.2 20.4H3.6V9h3.6v11.4zM5.4 7.4c-1.2 0-2.1-.9-2.1-2.1 0-1.1.9-2.1 2.1-2.1s2.1 1 2.1 2.1c0 1.2-.9 2.1-2.1 2.1zm15 13h-3.6v-5.6c0-1.3 0-3-1.9-3s-2.2 1.5-2.2 2.9v5.7H9.1V9h3.5v1.6h.1c.5-.9 1.7-1.9 3.5-1.9 3.7 0 4.4 2.4 4.4 5.6v6.1z" />
+                      </svg>
+                      <span>View LinkedIn</span>
                     </a>
                   </article>
                 ))}
               </div>
             </div>
+             <div className="max-w-3xl   bg-transparent ">
+              <div className="mt-6 flex ">
+                <a
+                  href="#subteams"
+                  className="inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-sm font-semibold text-white shadow-soft transition hover:shadow-lg"
+                  onClick={(event) => handleNavbarClick(event, '#subteams')}
+                >
+                  Back to Subsystems
+                </a>
+              </div>
+            </div>
           </section>
         ) : (
           <>
-        <section className="grid items-center gap-12 py-10 md:py-16 lg:grid-cols-[1.1fr_0.9fr]" id="about">
+        <section className="grid items-center gap-12 py-10 md:py-16 lg:grid-cols-[1.3fr_0.7fr]" id="about">
           <div className="rounded-[32px] border border-black/10 bg-white/85 p-8 shadow-soft">
             <p className="text-xs uppercase tracking-[0.4em] text-accent">Engineering Biology • IIT Bombay</p>
             <h1 className="mt-5 font-display text-4xl leading-tight md:text-6xl">
@@ -460,6 +431,7 @@ export default function App() {
               <a
                 className="rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
                 href="#project"
+                onClick={(event) => handleNavbarClick(event, '#project')}
               >
                 Explore 2025 Project
               </a>
@@ -487,9 +459,7 @@ export default function App() {
           <div className="rounded-[32px] border border-black/10 bg-white/90 p-6 shadow-soft">
             <p className="text-xs uppercase tracking-[0.4em] text-accent">Snapshot</p>
             <h3 className="mt-4 font-display text-2xl">iGEM IIT Bombay at a glance</h3>
-            <p className="mt-3 text-sm text-muted">
-              A structured snapshot of the 2025 cycle, with quick access to official documentation and announcements.
-            </p>
+            
             <div className="mt-5 grid gap-3">
               {focusPoints.map((item) => (
                 <div key={item.title} className="rounded-2xl border border-black/10 bg-white/90 p-4 shadow-soft">
@@ -498,19 +468,7 @@ export default function App() {
                 </div>
               ))}
             </div>
-            <div className="mt-5 flex flex-wrap gap-3">
-              {resourceLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full border border-black/10 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted transition hover:-translate-y-0.5 hover:shadow-lg"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
+         
           </div>
         </section>
 
@@ -625,7 +583,7 @@ export default function App() {
           </div>
         </section>
         <section className="py-10 md:py-14" id="achievements">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-[0.4em] text-accent">Achievements</p>
             <h2 className="mt-4 font-display text-3xl md:text-4xl">Two years of learning, innovation, and impact.</h2>
           </div>
@@ -647,24 +605,35 @@ export default function App() {
         </section>
 
         <section className="py-10 md:py-14" id="subteams">
+          <div id="team-gallery" className="relative -top-24" />
           <div className="max-w-2xl">
             <p className="text-xs uppercase tracking-[0.4em] text-accent">Subsystems</p>
             <h2 className="mt-4 font-display text-3xl md:text-4xl">Four pillars, one mission.</h2>
+            <p className="mt-3 text-sm text-muted">
+              Each subsystem owns a critical part of the project with focused responsibilities, domain expertise, and dedicated team execution.
+            </p>
           </div>
-          <div className="mt-8 grid gap-6 lg:grid-cols-4">
+          <div className="mt-8 grid gap-6 lg:grid-cols-2">
             {subsystemData.map((item) => (
               <article
                 key={item.title}
-                className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
+                className="overflow-hidden rounded-2xl border border-black/10 bg-white/90 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
               >
-                <h3 className="font-display text-xl">{item.title}</h3>
-                <p className="mt-2 text-sm text-muted">{item.text}</p>
-                <a
-                  href={`#/${item.route}`}
-                  className="mt-4 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white shadow-soft transition hover:shadow-lg"
-                >
-                  Visit Page
-                </a>
+                <img
+                  src={item.coverImage}
+                  alt={item.coverAlt}
+                  className="h-52 w-full object-cover"
+                />
+                <div className="p-6">
+                  <p className="text-xs uppercase tracking-[0.25em] text-accent">{item.role}</p>
+                  <p className="mt-3 text-sm text-muted">{item.details}</p>
+                  <a
+                    href={`#/${item.route}`}
+                    className="mt-5 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white shadow-soft transition hover:shadow-lg"
+                  >
+                    Visit Page
+                  </a>
+                </div>
               </article>
             ))}
           </div>
@@ -675,55 +644,57 @@ export default function App() {
             <p className="text-xs uppercase tracking-[0.4em] text-accent">Events</p>
           </div>
           
-          <div className="mt-4">
-            <h3 className="font-display text-2xl mb-6">Upcoming Events</h3>
-            <div className="grid gap-6 md:grid-cols-2">
-              {[
-                {
-                  title: 'SYNBIOCON 2026',
-                  text: 'A collaborative synthetic biology conference hosted by IIT Bombay and IIT Kharagpur.',
-                  link: 'www.synbiocon2026.in',
-                  linkText: 'Visit our website'
-                },
-              ].map((event) => (
-                <article
-                  key={event.title}
-                  className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft "
-                >
-                  <h3 className="font-display text-xl">{event.title}</h3>
-                  <p className="mt-2 text-sm text-muted">{event.text}</p>
-                  <a
-                    className="mt-4 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-                    href={event.link}
-                    target="_blank"
-                    rel="noreferrer"
+          <div className="mt-6 grid gap-8 xl:grid-cols-2">
+            <div>
+              <h3 className="mb-6 font-display text-2xl">Upcoming Events</h3>
+              <div className="grid gap-6">
+                {[
+                  {
+                    title: 'SYNBIOCON 2026',
+                    text: 'A collaborative synthetic biology conference hosted by IIT Bombay and IIT Kharagpur.',
+                    link: 'www.synbiocon2026.in',
+                    linkText: 'Visit our website'
+                  },
+                ].map((event) => (
+                  <article
+                    key={event.title}
+                    className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft"
                   >
-                    {event.linkText}
-                  </a>
-                </article>
-              ))}
+                    <h3 className="font-display text-xl">{event.title}</h3>
+                    <p className="mt-2 text-sm text-muted">{event.text}</p>
+                    <a
+                      className="mt-4 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
+                      href={event.link}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {event.linkText}
+                    </a>
+                  </article>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="mt-12">
-            <h3 className="font-display text-2xl mb-6">Past Events</h3>
-            <div className="grid gap-6 md:grid-cols-2">
-              {[
-                {
-                  title: 'BioQuest 2025',
-                  text: 'Conducted large-scale synthetic biology outreach and engagement across schools and students in Mumbai.',
-                  date: 'SUMMER 2025'
-                },
-              ].map((event) => (
-                <article
-                  key={event.title}
-                  className="rounded-2xl border border-black/10 bg-white/60 p-6 shadow-soft"
-                >
-                  <span className="text-xs uppercase tracking-[0.2em] text-accent">{event.date}</span>
-                  <h3 className="mt-3 font-display text-xl">{event.title}</h3>
-                  <p className="mt-2 text-sm text-muted">{event.text}</p>
-                </article>
-              ))}
+            <div>
+              <h3 className="mb-6 font-display text-2xl">Past Events</h3>
+              <div className="grid gap-6">
+                {[
+                  {
+                    title: 'BioQuest 2025',
+                    text: 'Conducted large-scale synthetic biology outreach and engagement across schools and students in Mumbai.',
+                    date: 'SUMMER 2025'
+                  },
+                ].map((event) => (
+                  <article
+                    key={event.title}
+                    className="rounded-2xl border border-black/10 bg-white/60 p-6 shadow-soft"
+                  >
+                    <span className="text-xs uppercase tracking-[0.2em] text-accent">{event.date}</span>
+                    <h3 className="mt-3 font-display text-xl">{event.title}</h3>
+                    <p className="mt-2 text-sm text-muted">{event.text}</p>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -737,7 +708,7 @@ export default function App() {
               <img
                 src={highlightGallery[0].src}
                 alt={highlightGallery[0].alt}
-                className="h-72 w-full rounded-xl border border-black/10 object-cover transition duration-300 ease-out hover:scale-[1.02] hover:shadow-[0_18px_32px_rgba(31,122,140,0.28)] md:h-96"
+                className="h-72 w-full rounded-xl border border-black/10 object-cover transition duration-300 ease-out hover:scale-[1.02]  md:h-96"
               />
               <figcaption className="mt-3 text-sm text-muted">{highlightGallery[0].caption}</figcaption>
             </figure>
@@ -745,7 +716,7 @@ export default function App() {
               <img
                 src={highlightGallery[1].src}
                 alt={highlightGallery[1].alt}
-                className="h-72 w-full rounded-xl border border-black/10 object-cover transition duration-300 ease-out hover:scale-[1.02] hover:shadow-[0_18px_32px_rgba(31,122,140,0.28)] md:h-96"
+                className="h-72 w-full rounded-xl border border-black/10 object-cover transition duration-300 ease-out hover:scale-[1.02] ] md:h-96"
               />
               <figcaption className="mt-3 text-sm text-muted">{highlightGallery[1].caption}</figcaption>
             </figure>
@@ -780,29 +751,6 @@ export default function App() {
         
         </section>
 
-        <section className="py-10 md:py-14" id="team-gallery">
-          <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Know The Team</p>
-          
-          </div>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {teamGalleryPeople.map((person) => (
-              <a
-                key={person.name}
-                href={person.href}
-                className="rounded-2xl border border-black/10 bg-white/90 p-4 shadow-soft transition hover:shadow-lg"
-              >
-                <img
-                  src={person.image}
-                  alt={person.name}
-                  className="h-52 w-full rounded-xl border border-black/10 object-cover transition duration-300 ease-out hover:scale-[1.03] hover:shadow-[0_16px_30px_rgba(31,122,140,0.28)]"
-                />
-                <h3 className="mt-3 font-display text-xl">{person.name}</h3>
-                <p className="text-sm text-muted">{person.role}</p>
-              </a>
-            ))}
-          </div>
-        </section>
           </>
         )}
       </main>
@@ -828,7 +776,7 @@ export default function App() {
             </div>
             <div className="space-y-3 text-sm text-muted">
               <p className="font-semibold text-ink">Contact Us</p>
-              <p>IIT Bombay, Mumbai, Maharashtra</p>
+              <p>IIT Bombay, Powai, Mumbai, Maharashtra, 400076</p>
               <p>Email: <a href="mailto:igem.iitb@gmail.com" className="hover:text-accent">igem.iitb@gmail.com</a></p>
 <div className="flex gap-4">
   <a href="https://in.linkedin.com/company/igem-iit-bombay" target="_blank" rel="noopener noreferrer">
@@ -846,43 +794,21 @@ export default function App() {
             </div>
             <div className="space-y-3 text-sm text-muted">
               <p className="font-semibold text-ink">Quick Links</p>
-              <a
-                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
-                href="#project"
-              >
-                Project
-              </a>
-              <a
-                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
-                href="#achievements"
-              >
-                Achievements
-              </a>
-              <a
-                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
-                href="#wiki"
-              >
-                Wiki
-              </a>
-              <a
-                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
-                href="#gallery"
-              >
-                Gallery
-              </a>
-              <a
-                className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4"
-                href="#team-gallery"
-                onClick={(event) => handleNavbarClick(event, '#team-gallery')}
-              >
-                Team Gallery
-              </a>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-1">
+                <a className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4" href="#about" onClick={(event) => handleNavbarClick(event, '#about')}>About</a>
+                <a className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4" href="#project" onClick={(event) => handleNavbarClick(event, '#project')}>Project</a>
+                <a className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4" href="#achievements" onClick={(event) => handleNavbarClick(event, '#achievements')}>Achievements</a>
+                <a className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4" href="#subteams" onClick={(event) => handleNavbarClick(event, '#subteams')}>Subsystems</a>
+                <a className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4" href="#events" onClick={(event) => handleNavbarClick(event, '#events')}>Events</a>
+                <a className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4" href="#gallery" onClick={(event) => handleNavbarClick(event, '#gallery')}>Gallery</a>
+              </div>
+              
             </div>
           </div>
           <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-sm text-muted">
             <p>© 2026 iGEM IIT Bombay. All rights reserved.</p>
             <div className="flex gap-4">
-              <a href="#about">Back to top</a>
+              <a href="#about" onClick={(event) => handleNavbarClick(event, '#about')}>Back to top</a>
               <a href="mailto:igem.iitb@gmail.com">Email</a>
             </div>
           </div>
