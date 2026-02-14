@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import iitbLogo from './assets/iitb.webp';
 import igem2024Image from './assets/2024_igem.png';
 import igem2025Image from './assets/2025_igem.png';
@@ -12,23 +12,19 @@ import { Linkedin, Instagram } from "lucide-react";
 
 
 const stats = [
-  { label: 'Silver Medal', value: 'iGEM 2025 — Paris' },
-  { label: 'Gold Medal', value: 'iGEM 2024 — First Year' }
+  { label: 'Silver Medal', value: 'iGEM 2025' },
+  { label: 'Gold Medal', value: 'iGEM 2024' }
 ];
 
 const focusPoints = [
   {
-    title: '2025 Focus',
-    text: 'Engineered protease therapy to disrupt biofilm infections in biomedical devices.'
+    title: '2026 Focus',
+    text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
   },
   {
     title: 'Faculty Mentors',
     text: 'Prof. Kiran Kondabagil (BSBE) and Prof. Saket Choudhary (KCDH).'
   },
-  {
-    title: 'Documentation',
-    text: 'Official 2025 team wiki and institute coverage for full technical details.'
-  }
 ];
 
 const resourceLinks = [
@@ -175,7 +171,10 @@ const wikiMap = ['Project', 'Safety', 'Human Practices', 'Results', 'Contributio
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [desktopSubsystemMenuOpen, setDesktopSubsystemMenuOpen] = useState(false);
+  const [mobileSubsystemMenuOpen, setMobileSubsystemMenuOpen] = useState(false);
   const [route, setRoute] = useState(getRouteFromHash());
+  const desktopSubsystemMenuTimerRef = useRef(null);
   const selectedSubsystem = subsystemData.find((item) => item.route === route);
 
   useEffect(() => {
@@ -186,6 +185,8 @@ export default function App() {
 
   useEffect(() => {
     setMenuOpen(false);
+    setDesktopSubsystemMenuOpen(false);
+    setMobileSubsystemMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [route]);
 
@@ -197,6 +198,12 @@ export default function App() {
       document.body.style.overflow = originalOverflow;
     };
   }, [menuOpen]);
+
+  useEffect(() => () => {
+    if (desktopSubsystemMenuTimerRef.current) {
+      window.clearTimeout(desktopSubsystemMenuTimerRef.current);
+    }
+  }, []);
 
   const scrollToSection = (sectionId) => {
     const target = document.getElementById(sectionId);
@@ -222,15 +229,43 @@ export default function App() {
     scrollToSection(sectionId);
   };
 
+  const openDesktopSubsystemMenu = () => {
+    if (desktopSubsystemMenuTimerRef.current) {
+      window.clearTimeout(desktopSubsystemMenuTimerRef.current);
+    }
+    setDesktopSubsystemMenuOpen(true);
+  };
+
+  const closeDesktopSubsystemMenu = () => {
+    desktopSubsystemMenuTimerRef.current = window.setTimeout(() => {
+      setDesktopSubsystemMenuOpen(false);
+    }, 180);
+  };
+
   const mobilePrimaryLinks = [
     { label: 'About', href: '#about' },
     { label: 'Project', href: '#project' },
     { label: 'Achievements', href: '#achievements' },
     { label: 'Wiki', href: '#wiki' },
-    { label: 'Subsystems', href: '#subteams' },
+    { label: 'Subsystems', href: '#subteams', isSubsystemTrigger: true },
     { label: 'Events', href: '#events' },
     { label: 'Gallery', href: '#gallery' }
   ];
+
+  const desktopNavLinks = [
+    { label: 'About', href: '#about' },
+    { label: 'Project', href: '#project' },
+    { label: 'Achievements', href: '#achievements' },
+    { label: 'Wiki', href: '#wiki' },
+    { label: 'Subsystems', href: '#subteams', isSubsystemTrigger: true },
+    { label: 'Events', href: '#events' },
+    { label: 'Gallery', href: '#gallery' }
+  ];
+
+  const subsystemRouteLinks = subsystemData.map((item) => ({
+    label: item.title,
+    href: `#/${item.route}`
+  }));
 
   const mobileQuickLinks = [
     { label: 'Visit 2025 Wiki', href: 'https://2025.igem.wiki/iit-bombay/', external: true },
@@ -238,7 +273,7 @@ export default function App() {
   ];
 
   return (
-    <div className="relative overflow-x-hidden">
+    <div className="relative flex min-h-screen flex-col overflow-x-hidden">
       <header className="fixed top-0 z-30 w-full">
        <div className="mx-auto w-full sm:pt-3 sm:w-[92vw] sm:px-4 md:w-[85vw] lg:w-[70vw] xl:min-w-[1050px]">
 
@@ -251,29 +286,71 @@ export default function App() {
                   className="h-[84px] w-[84px] shrink-0 rounded-full object-contain mix-blend-multiply drop-shadow-[0_14px_22px_rgba(26,36,52,0.18)] sm:h-[72px] sm:w-[72px]"
                 />
                 <div className="leading-tight whitespace-nowrap">
-                  <p className="text-xs uppercase tracking-[0.35em] text-accent">iGEM</p>
+                  <p className="text-sm uppercase tracking-[0.35em] text-accent">iGEM</p>
                   <p className="text-base font-semibold text-ink sm:text-lg">IIT BOMBAY</p>
                 </div>
               </div>
-              <nav className="ml-4 hidden min-w-0 flex-1 items-center justify-between text-xs text-muted xl:flex xl:text-sm">
-                {[
-                  { label: 'About', href: '#about' },
-                  { label: 'Project', href: '#project' },
-                  { label: 'Achievements', href: '#achievements' },
-                  { label: 'Wiki', href: '#wiki' },
-                  { label: 'Subsystems', href: '#subteams' },
-                  { label: 'Events', href: '#events' },
-                  { label: 'Gallery', href: '#gallery' }
-                 
-                ].map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="relative px-2 py-2 text-center transition hover:text-accent hover:underline hover:underline-offset-4 2xl:px-3"
-                    onClick={(event) => handleNavbarClick(event, item.href)}
-                  >
-                    {item.label}
-                  </a>
+              <nav className="ml-4 hidden min-w-0 flex-1 items-center justify-between text-sm text-muted xl:flex xl:text-sm">
+                {desktopNavLinks.map((item) => (
+                  item.isSubsystemTrigger ? (
+                    <div
+                      key={item.label}
+                      className="relative"
+                      onMouseEnter={openDesktopSubsystemMenu}
+                      onMouseLeave={closeDesktopSubsystemMenu}
+                    >
+                      <button
+                        type="button"
+                        className="relative inline-flex items-center px-2 py-2 text-center transition hover:text-accent 2xl:px-3"
+                        onClick={() => setDesktopSubsystemMenuOpen((prev) => !prev)}
+                      >
+                        {item.label}
+                      </button>
+                      {desktopSubsystemMenuOpen ? (
+                        <span className="pointer-events-none absolute left-1/2 top-full mt-0.5 h-0 w-0 -translate-x-1/2 border-l-[6px] border-r-[6px] border-t-[7px] border-l-transparent border-r-transparent border-t-accent" />
+                      ) : null}
+                      {desktopSubsystemMenuOpen ? (
+                        <div
+                          className="absolute left-1/2 top-full z-50 mt-1 w-64 -translate-x-1/2 rounded-2xl border border-black/10 bg-white/95 p-2 shadow-xl backdrop-blur-md"
+                          onMouseEnter={openDesktopSubsystemMenu}
+                          onMouseLeave={closeDesktopSubsystemMenu}
+                        >
+                          <a
+                            href="#subteams"
+                            className="block rounded-xl px-3 py-2 text-sm text-ink transition hover:bg-[rgba(31,122,140,0.09)]"
+                            onClick={(event) => {
+                              setDesktopSubsystemMenuOpen(false);
+                              handleNavbarClick(event, '#subteams');
+                            }}
+                          >
+                            All Subsystems
+                          </a>
+                          {subsystemRouteLinks.map((subItem) => (
+                            <a
+                              key={subItem.label}
+                              href={subItem.href}
+                              className="block rounded-xl px-3 py-2 text-sm text-ink transition hover:bg-[rgba(31,122,140,0.09)]"
+                              onClick={() => setDesktopSubsystemMenuOpen(false)}
+                            >
+                              {subItem.label}
+                            </a>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="relative px-2 py-2 text-center transition hover:text-accent hover:underline hover:underline-offset-4 2xl:px-3"
+                      onClick={(event) => {
+                        setDesktopSubsystemMenuOpen(false);
+                        handleNavbarClick(event, item.href);
+                      }}
+                    >
+                      {item.label}
+                    </a>
+                  )
                 ))}
               </nav>
             </div>
@@ -302,7 +379,7 @@ export default function App() {
               />
               <aside className="absolute right-0 top-0 h-full w-[82vw] max-w-[360px] overflow-y-auto border-l border-black/10 bg-[rgba(255,255,255,0.92)] px-4 py-5 text-ink shadow-2xl">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs font-semibold uppercase tracking-[0.36em] text-accent">Navigation</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.36em] text-accent">Navigation</p>
                   <button
                     type="button"
                     className="rounded-full border border-black/15 bg-white px-3.5 py-1.5 text-sm font-semibold text-ink"
@@ -315,23 +392,65 @@ export default function App() {
                 <div className="mt-5 border-t border-black/10 pt-5">
                   <div className="space-y-2.5">
                     {mobilePrimaryLinks.map((item) => (
-                      <a
-                        key={item.label}
-                        href={item.href}
-                        className="block rounded-2xl border border-black/10 bg-white/95 px-4 py-3 text-base font-semibold text-ink transition hover:border-[#61b8d0] hover:shadow-[0_0_14px_rgba(58,173,207,0.18)]"
-                        onClick={(event) => {
-                          setMenuOpen(false);
-                          handleNavbarClick(event, item.href);
-                        }}
-                      >
-                        {item.label}
-                      </a>
+                      item.isSubsystemTrigger ? (
+                        <div key={item.label}>
+                          <button
+                            type="button"
+                            className="flex w-full items-center justify-between rounded-2xl border border-black/10 bg-white/95 px-4 py-3 text-left text-base font-semibold text-ink transition hover:border-[#61b8d0] hover:shadow-[0_0_14px_rgba(58,173,207,0.18)]"
+                            onClick={() => setMobileSubsystemMenuOpen((prev) => !prev)}
+                          >
+                            <span>{item.label}</span>
+                            <span className={`text-sm transition ${mobileSubsystemMenuOpen ? 'rotate-180' : ''}`}>▼</span>
+                          </button>
+                          {mobileSubsystemMenuOpen ? (
+                            <div className="mt-2 ml-2 space-y-2">
+                              <a
+                                href="#subteams"
+                                className="block rounded-xl border border-black/10 bg-white/90 px-3 py-2 text-sm font-medium text-ink"
+                                onClick={(event) => {
+                                  setMenuOpen(false);
+                                  setMobileSubsystemMenuOpen(false);
+                                  handleNavbarClick(event, '#subteams');
+                                }}
+                              >
+                                All Subsystems
+                              </a>
+                              {subsystemRouteLinks.map((subItem) => (
+                                <a
+                                  key={subItem.label}
+                                  href={subItem.href}
+                                  className="block rounded-xl border border-black/10 bg-white/90 px-3 py-2 text-sm font-medium text-ink"
+                                  onClick={() => {
+                                    setMenuOpen(false);
+                                    setMobileSubsystemMenuOpen(false);
+                                  }}
+                                >
+                                  {subItem.label}
+                                </a>
+                              ))}
+                            </div>
+                          ) : null}
+                        </div>
+                      ) : (
+                        <a
+                          key={item.label}
+                          href={item.href}
+                          className="block rounded-2xl border border-black/10 bg-white/95 px-4 py-3 text-base font-semibold text-ink transition hover:border-[#61b8d0] hover:shadow-[0_0_14px_rgba(58,173,207,0.18)]"
+                          onClick={(event) => {
+                            setMenuOpen(false);
+                            setMobileSubsystemMenuOpen(false);
+                            handleNavbarClick(event, item.href);
+                          }}
+                        >
+                          {item.label}
+                        </a>
+                      )
                     ))}
                   </div>
                 </div>
 
                 <div className="mt-6 border-t border-black/10 pt-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.32em] text-muted">iGEM wiki</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.32em] text-muted">iGEM wiki</p>
                   <div className="mt-3 space-y-2.5">
                     {mobileQuickLinks.map((item) => (
                       <a
@@ -353,12 +472,12 @@ export default function App() {
         </div>
       </header>
 
-      <main className="mx-auto w-[92vw] px-4 pt-20 md:w-[85vw] md:px-6 lg:w-[70vw] lg:pt-24 md:pt-24 lg:pt-28">
+      <main className="mx-auto w-[92vw] flex-1 px-4 pt-20 md:w-[85vw] md:px-6 lg:w-[70vw] lg:pt-24 md:pt-24 lg:pt-28">
         {selectedSubsystem ? (
-          <section className="py-14 md:py-6" id={selectedSubsystem.anchorId}>
+          <section className="py-10 md:py-12" id={selectedSubsystem.anchorId}>
            
             <div className="mt-0 rounded-3xl  bg-transparent ">
-              <p className="text-xs uppercase tracking-[0.3em] text-accent">Team Members</p>
+              <p className="text-sm uppercase tracking-[0.3em] text-accent">Team Members</p>
               <h3 className="mt-3 font-display text-2xl">Meet the {selectedSubsystem.title} members</h3>
               <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {selectedSubsystem.members.map((member) => (
@@ -417,13 +536,10 @@ export default function App() {
           </section>
         ) : (
           <>
-        <section className="grid items-center gap-12 py-10 md:py-16 lg:grid-cols-[1.3fr_0.7fr]" id="about">
+        <section className="grid items-center gap-12 py-10 md:py-12 lg:grid-cols-[1.3fr_0.7fr]" id="about">
           <div className="rounded-[32px] border border-black/10 bg-white/85 p-8 shadow-soft">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Engineering Biology • IIT Bombay</p>
-            <h1 className="mt-5 font-display text-4xl leading-tight md:text-6xl">
-              Student-led synthetic biology, built for real-world impact.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg text-muted">
+            <p className="text-sm uppercase tracking-[0.2em] text-accent">Who are we?</p>
+            <p className="mt-6 max-w-2xl text-xl text-muted">
               iGEM IIT Bombay is a student-led synthetic biology team representing IIT Bombay at the annual iGEM
               competition. iGEM is a global synthetic biology event that brings together 400+ teams worldwide.
             </p>
@@ -444,26 +560,26 @@ export default function App() {
                 Visit 2025 Wiki
               </a>
             </div>
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
               {stats.map((stat) => (
                 <div
                   key={stat.label}
                   className="rounded-2xl border border-black/10 bg-white/90 p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
                 >
                   <p className="text-base font-semibold text-ink">{stat.value}</p>
-                  <p className="text-xs uppercase tracking-[0.2em] text-muted">{stat.label}</p>
+                  <p className="text-sm uppercase tracking-[0.2em] text-muted">{stat.label}</p>
                 </div>
               ))}
             </div>
           </div>
           <div className="rounded-[32px] border border-black/10 bg-white/90 p-6 shadow-soft">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Snapshot</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-accent">Snapshot</p>
             <h3 className="mt-4 font-display text-2xl">iGEM IIT Bombay at a glance</h3>
             
             <div className="mt-5 grid gap-3">
               {focusPoints.map((item) => (
                 <div key={item.title} className="rounded-2xl border border-black/10 bg-white/90 p-4 shadow-soft">
-                  <p className="text-xs uppercase tracking-[0.25em] text-accent">{item.title}</p>
+                  <p className="text-sm uppercase tracking-[0.25em] text-accent">{item.title}</p>
                   <p className="mt-2 text-sm text-muted">{item.text}</p>
                 </div>
               ))}
@@ -475,7 +591,7 @@ export default function App() {
         <section className="py-10 md:py-14" id="project">
 
             <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-accent">2025 Project</p>
+              <p className="text-sm uppercase tracking-[0.3em] text-accent">2025 Project</p>
               <h2 className="mt-4 font-display text-3xl md:text-4xl">Engineered Extracellular Serine Protease for disrupting biofilms, combating Antimicrobial resistance.</h2>
               <p className="mt-5 text-muted">
                 The 2025 project targets biofilm-associated infections through an engineered protease solution designed to
@@ -516,7 +632,7 @@ export default function App() {
     <section className="py-10 md:py-14" id="wiki">
           <div className="grid gap-8 ">
             <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-accent">iGEM Wiki</p>
+              <p className="text-sm uppercase tracking-[0.3em] text-accent">iGEM Wiki</p>
               <h2 className="mt-4 font-display text-3xl md:text-4xl">Our full wiki is the source of record.</h2>
               <p className="mt-4 text-muted">
                 The iGEM wiki hosts full technical details, experiments, results, and documentation for the team.
@@ -530,7 +646,7 @@ export default function App() {
       
       {/* 2025 Card */}
       <div className="w-full max-w-md rounded-3xl border border-black/10 bg-white/90 p-6 shadow-soft ">
-        <p className="text-xs uppercase tracking-[0.3em] text-accent">
+        <p className="text-sm uppercase tracking-[0.3em] text-accent">
           2025 Wiki
         </p>
 
@@ -543,7 +659,7 @@ export default function App() {
         </p>
 
         <a
-          className="mt-6 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
+          className="mt-6 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
           href="https://2025.igem.wiki/iit-bombay/"
           target="_blank"
           rel="noreferrer"
@@ -554,7 +670,7 @@ export default function App() {
 
       {/* 2024 Card */}
       <div className="w-full max-w-md rounded-3xl border border-black/10 bg-white/90 p-6 shadow-soft ">
-        <p className="text-xs uppercase tracking-[0.3em] text-accent">
+        <p className="text-sm uppercase tracking-[0.3em] text-accent">
           2024 Wiki
         </p>
 
@@ -567,7 +683,7 @@ export default function App() {
         </p>
 
         <a
-          className="mt-6 inline-flex mx-auto rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
+          className="mt-6 inline-flex mx-auto rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
           href="https://2024.igem.wiki/iit-bombay/"
           target="_blank"
           rel="noreferrer"
@@ -584,7 +700,7 @@ export default function App() {
         </section>
         <section className="py-10 md:py-14" id="achievements">
           <div className="max-w-3xl">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Achievements</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-accent">Achievements</p>
             <h2 className="mt-4 font-display text-3xl md:text-4xl">Two years of learning, innovation, and impact.</h2>
           </div>
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -594,7 +710,7 @@ export default function App() {
                 id={item.anchorId}
                 className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
               >
-                <span className="inline-flex rounded-full bg-[rgba(31,122,140,0.12)] px-3 py-1 text-xs font-semibold text-accent">
+                <span className="inline-flex rounded-full bg-[rgba(31,122,140,0.12)] px-3 py-1 text-sm font-semibold text-accent">
                   {item.year}
                 </span>
                 <h3 className="mt-4 font-display text-xl">{item.title}</h3>
@@ -607,7 +723,7 @@ export default function App() {
         <section className="py-10 md:py-14" id="subteams">
           <div id="team-gallery" className="relative -top-24" />
           <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Subsystems</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-accent">Subsystems</p>
             <h2 className="mt-4 font-display text-3xl md:text-4xl">Four pillars, one mission.</h2>
             <p className="mt-3 text-sm text-muted">
               Each subsystem owns a critical part of the project with focused responsibilities, domain expertise, and dedicated team execution.
@@ -625,11 +741,11 @@ export default function App() {
                   className="h-52 w-full object-cover"
                 />
                 <div className="p-6">
-                  <p className="text-xs uppercase tracking-[0.25em] text-accent">{item.role}</p>
+                  <p className="text-sm uppercase tracking-[0.25em] text-accent">{item.role}</p>
                   <p className="mt-3 text-sm text-muted">{item.details}</p>
                   <a
                     href={`#/${item.route}`}
-                    className="mt-5 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white shadow-soft transition hover:shadow-lg"
+                    className="mt-5 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-sm font-semibold uppercase tracking-[0.15em] text-white shadow-soft transition hover:shadow-lg"
                   >
                     Visit Page
                   </a>
@@ -641,7 +757,7 @@ export default function App() {
 
         <section className="py-10 md:py-14" id="events">
           <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Events</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-accent">Events</p>
           </div>
           
           <div className="mt-6 grid gap-8 xl:grid-cols-2">
@@ -652,7 +768,7 @@ export default function App() {
                   {
                     title: 'SYNBIOCON 2026',
                     text: 'A collaborative synthetic biology conference hosted by IIT Bombay and IIT Kharagpur.',
-                    link: 'www.synbiocon2026.in',
+                    link: 'https://www.synbiocon2026.in',
                     linkText: 'Visit our website'
                   },
                 ].map((event) => (
@@ -663,7 +779,7 @@ export default function App() {
                     <h3 className="font-display text-xl">{event.title}</h3>
                     <p className="mt-2 text-sm text-muted">{event.text}</p>
                     <a
-                      className="mt-4 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
+                      className="mt-4 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
                       href={event.link}
                       target="_blank"
                       rel="noreferrer"
@@ -689,7 +805,7 @@ export default function App() {
                     key={event.title}
                     className="rounded-2xl border border-black/10 bg-white/60 p-6 shadow-soft"
                   >
-                    <span className="text-xs uppercase tracking-[0.2em] text-accent">{event.date}</span>
+                    <span className="text-sm uppercase tracking-[0.2em] text-accent">{event.date}</span>
                     <h3 className="mt-3 font-display text-xl">{event.title}</h3>
                     <p className="mt-2 text-sm text-muted">{event.text}</p>
                   </article>
@@ -701,7 +817,7 @@ export default function App() {
 
         <section className="py-10 md:py-14" id="gallery">
           <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.4em] text-accent">Gallery</p>       
+            <p className="text-sm uppercase tracking-[0.3em] text-accent">Gallery</p>       
           </div>
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
             <figure className="rounded-2xl border border-black/10 bg-white/90 p-4 shadow-soft ">
@@ -767,7 +883,7 @@ export default function App() {
                 />
                 <div>
                   <p className="font-semibold text-ink">iGEM IIT Bombay</p>
-                  <p className="text-xs text-muted">Synthetic Biology Team</p>
+                  <p className="text-sm text-muted">Synthetic Biology Team</p>
                 </div>
               </div>
               <p className="text-sm text-muted">
