@@ -4,13 +4,9 @@ import igem2024Image from './assets/2024_igem.png';
 import igem2025Image from './assets/2025_igem.png';
 // import groundPicImage from './assets/ground_pic.png';
 import groundPicImage from './assets/cropped_ground.png';
-import onePicImage from './assets/onePic.png';
-import webDevPic from './assets/web_pic.png';
 import memberPhotos from './assets/members';
-import wetLab from './assets/wetLab.png';
-import dryLab from './assets/dryLabPic.png';
 import teamImage from './assets/team_igem.png';
-import { Linkedin, Instagram } from "lucide-react";
+import { BarChart3, Code2, FlaskConical, Linkedin, Instagram, Users } from "lucide-react";
 
 
 const stats = [
@@ -90,6 +86,13 @@ const achievements = [
   }
 ];
 
+const subsystemIconMap = {
+  'wet-lab': FlaskConical,
+  'dry-lab': BarChart3,
+  'human-practices-design': Users,
+  'web-development': Code2
+};
+
 
 
 
@@ -120,8 +123,6 @@ const subsystemData = [
     text: 'Experimental design, cloning, validation, and biosafety protocols.',
     details: 'Designs and executes the full experimental pipeline: construct assembly, strain validation, assay development, and biosafety checks for reproducible in lab results.',
     role: 'Wet Lab',
-    coverImage: wetLab,
-    coverAlt: 'Wet Lab team working in the lab',
     members: [
        {name: 'Ranit S Sooraj',
           role: 'Sr. Wetlab Researcher',
@@ -153,8 +154,6 @@ const subsystemData = [
     text: 'Modeling, computational analysis, and data visualization.',
     details: 'Builds mathematical and computational models, performs sensitivity analyses, and supports decision making with simulation driven insights and clear data interpretation.',
     role: 'Dry Lab',
-    coverImage: dryLab,
-    coverAlt: 'Dry Lab team at iGEM',
     members: [
      {name: 'Bipra Bhanu Mohanty',
           role: 'Dry Lab Researcher',
@@ -190,8 +189,6 @@ const subsystemData = [
     text: 'Ethics, policy review, stakeholder interviews, outreach and design.',
     details: 'Leads stakeholder engagement, policy and ethics review, media and communication design, and outreach strategy to ensure the project is socially responsible, ethically sound, user centered, and effectively communicated for real world deployment.',
     role: 'Human Practices and Design',
-    coverImage: onePicImage,
-    coverAlt: 'Human Practices and Design related visual',
     members: [
       
         {name: 'Angel Singhvi',
@@ -217,8 +214,6 @@ const subsystemData = [
     text: 'Building websites and interactive experiences to document and communicate the research.',
     details: 'Owns technical storytelling through website architecture, UI implementation, responsive layouts, and wiki delivery for transparent and accessible project documentation.',
     role: 'Web Development',
-    coverImage: webDevPic,
-    coverAlt: 'Web Development team visual',
     members: [
       {
         name: 'Sagnik Dey',
@@ -249,7 +244,6 @@ const subsystemData = [
 const preloadImageSources = Array.from(new Set([
   iitbLogo,
   ...highlightGallery.map((item) => item.src),
-  ...subsystemData.map((item) => item.coverImage),
   ...subsystemData.flatMap((item) => item.members.map((member) => member.image))
 ].filter(Boolean)));
 
@@ -432,14 +426,17 @@ export default function App() {
 
   return (
     <div className="relative flex min-h-screen flex-col  overflow-x-hidden">
-      <div
-        className={`fixed inset-0 z-[120] flex items-center justify-center bg-[radial-gradient(circle_at_18%_18%,rgba(91,192,217,0.16),transparent_44%),radial-gradient(circle_at_78%_8%,rgba(31,122,140,0.14),transparent_42%),#f6f8fb] transition-opacity duration-500 ${assetsReady ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
-      >
-        <div className="w-full  max-w-sm rounded-3xl bg-white/20 p-7 text-center ">
+     <div
+  className={`fixed inset-0 z-[9999] flex items-center justify-center bg-white transition-opacity duration-500 ${
+    assetsReady ? 'pointer-events-none opacity-0' : 'opacity-100'
+  }`}
+>
+
+        <div className="w-full  max-w-sm rounded-3xl bg-transparent p-7 text-center ">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full  bg-transparent">
             <div className="h-10 w-10 animate-spin rounded-full border-[3px] border-accent/25 border-t-accent" />
           </div>
-          <p className="mt-5 text-sm  tracking-[0.28em] text-accent">iGEM IIT Bombay</p>
+          <p className="mt-5 text-sm  tracking-[0.28em] text-accent">Loading iGEM IIT Bombay</p>
           <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-black/10">
             <div className="h-full rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] transition-all duration-300" style={{ width: `${assetLoadProgress}%` }} />
           </div>
@@ -876,17 +873,22 @@ export default function App() {
           </div>
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
             {subsystemData.map((item) => (
-              <article
-                key={item.title}
-                className="overflow-hidden rounded-2xl border border-black/10 bg-white/90 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-              >
-                <img
-                  src={item.coverImage}
-                  alt={item.coverAlt}
-                  className="h-52 w-full object-cover"
-                />
-                <div className="p-6">
-                  <p className="text-sm uppercase tracking-[0.25em] text-accent">{item.role}</p>
+              <article key={item.title} className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg">
+                <div className="flex items-center gap-4">
+                  {(() => {
+                    const Icon = subsystemIconMap[item.route] || FlaskConical;
+                    return (
+                      <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl  bg-transparent text-accent">
+                        <Icon className="h-6 w-6" />
+                      </span>
+                    );
+                  })()}
+                  <div>
+                 
+                    <p className="text-sm uppercase tracking-[0.25em] text-accent">{item.role}</p>
+                  </div>
+                </div>
+                <div className="pt-4">
                   <p className="mt-3 text-sm text-muted">{item.details}</p>
                   <a
                     href={`#/${item.route}`}
