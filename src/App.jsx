@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import iitbLogo from './assets/iitb.webp';
 import igem2024Image from './assets/2024_igem.png';
 import igem2025Image from './assets/2025_igem.png';
-import groundPicImage from './assets/ground_pic.png';
+import groundPicImage from './assets/cropped_ground.png';
 import onePicImage from './assets/onePic.png';
 import webDevPic from './assets/web_pic.png';
 import memberPhotos from './assets/members';
 import wetLab from './assets/wetLab.png';
 import dryLab from './assets/dryLabPic.png';
+import teamImage from './assets/team_igem.png';
 import { Linkedin, Instagram } from "lucide-react";
 
 
@@ -18,8 +19,8 @@ const stats = [
 
 const focusPoints = [
   {
-    title: '2026 Focus',
-    text: 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    title: 'iGEM 2024',
+    text: 'GOLD MEDAL'
   },
   {
     title: 'Faculty Mentors',
@@ -85,7 +86,7 @@ const highlightGallery = [
     caption: 'Team iGEM IIT Bombay at iGEM Grand Jamboree 2024.'
   },
   {
-    src: groundPicImage,
+    src: teamImage,
     alt: 'Ground photo highlight',
     caption: 'Team ground photo highlight.'
   }
@@ -331,7 +332,7 @@ export default function App() {
   ];
 
   return (
-    <div className="relative flex min-h-screen flex-col overflow-x-hidden">
+    <div className="relative flex min-h-screen flex-col  overflow-x-hidden">
       <header className="fixed top-0 z-30 w-full">
        <div className="mx-auto w-full sm:pt-3 sm:w-[92vw] sm:px-4 md:w-[85vw] lg:w-[70vw] xl:min-w-[1050px]">
 
@@ -530,7 +531,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="mx-auto w-[92vw] flex-1 px-4 pt-20 md:w-[85vw] md:px-6 lg:w-[70vw] lg:pt-24 md:pt-24 lg:pt-28">
+      <main className="mx-auto w-[92vw] flex-1 px-4 pt-20 md:w-[70vw] md:px-6 lg:w-[70vw] lg:pt-24 md:pt-24 lg:pt-28">
         {selectedSubsystem ? (
           <section className="py-10 md:py-12" id={selectedSubsystem.anchorId}>
            
@@ -594,14 +595,20 @@ export default function App() {
           </section>
         ) : (
           <>
-        <section className="grid items-center gap-12 py-10 md:py-12 lg:grid-cols-[1.3fr_0.7fr]" id="about">
-          <div className="rounded-[32px] border border-black/10 bg-white/85 p-8 shadow-soft">
-            <p className="text-sm uppercase tracking-[0.2em] text-accent">Who are we?</p>
-            <p className="mt-6 max-w-2xl text-lg text-muted">
+        <section className="grid items-center gap-12 py-10 lg:py-3" id="about">
+          <div className="rounded-[32px] border border-black/10 bg-white/80  p-4 shadow-soft md:p-6">
+            
+            <img
+              src={groundPicImage}
+              alt="iGEM IIT Bombay logo"
+              className=" border border-black/10 rounded-2xl object-cover shadow-soft "
+            />
+            <p className="text-sm mt-3 uppercase tracking-[0.2em] text-accent">Who are we?</p>
+            <p className="mt-2  text-lg text-muted">
               iGEM IIT Bombay is a student-led synthetic biology team representing IIT Bombay at the annual iGEM
               competition. iGEM is a global synthetic biology event that brings together 400+ teams worldwide.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            {/* <div className="mt-8 flex flex-wrap  gap-4">
               <a
                 className="rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
                 href="#project"
@@ -617,20 +624,20 @@ export default function App() {
               >
                 Visit 2025 Wiki
               </a>
-            </div>
-            <div className="mt-8 grid gap-4 md:grid-cols-2">
+            </div> */}
+            {/* <div className="mt-2 flex flex-wrap justify-center gap-6 ">
               {stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-2xl border border-black/10 bg-white/90 p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
+                  className="rounded-2xl border border-black/10 bg-white/90 p-4 shadow-soft "
                 >
-                  <p className="text-base font-semibold text-ink">{stat.value}</p>
+                  <p className="text-base font-semibold text-accent">{stat.value}</p>
                   <p className="text-sm uppercase tracking-[0.2em] text-muted">{stat.label}</p>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
-          <div className="rounded-[32px] border border-black/10 bg-white/90 p-6 shadow-soft">
+          {/* <div className="rounded-[32px] border border-black/10 bg-white/90 p-6 shadow-soft">
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Snapshot</p>
             <h3 className="mt-4 font-display text-2xl">iGEM IIT Bombay at a glance</h3>
             
@@ -643,10 +650,10 @@ export default function App() {
               ))}
             </div>
          
-          </div>
+          </div> */}
         </section>
 
-        <section className="py-10 md:py-14" id="project">
+        <section className="py-10 md:pt-14" id="project">
 
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-accent">2025 Project</p>
@@ -687,11 +694,11 @@ export default function App() {
             </div>
           
         </section>
-    <section className="py-10 md:py-14" id="wiki">
+    <section className="pt-10 md:pt-14" id="wiki">
           <div className="grid gap-8 ">
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-accent">iGEM Wiki</p>
-              <h2 className="mt-4 font-display text-3xl md:text-4xl">Our full wiki is the source of record.</h2>
+              <h2 className="mt-4 font-display text-3xl md:text-4xl">Our wiki is the source of record.</h2>
               <p className="mt-4 text-muted">
                 The iGEM wiki hosts full technical details, experiments, results, and documentation for the team.
               </p>
@@ -756,7 +763,7 @@ export default function App() {
 
           </div>
         </section>
-        <section className="py-10 md:py-14" id="achievements">
+        <section className="pt-10 md:pt-14" id="achievements">
           <div className="max-w-2xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Achievements</p>
             <h2 className="mt-4 font-display text-3xl md:text-4xl">Two years of learning, innovation, and impact.</h2>
@@ -778,7 +785,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="py-10 md:py-14" id="subteams">
+        <section className="pt-10 md:pt-14" id="subteams">
           <div id="team-gallery" className="relative -top-24" />
           <div className="max-w-2xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Subsystems</p>
@@ -813,7 +820,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="py-10 md:py-14" id="events">
+        <section className="pt-10 md:pt-14" id="events">
           <div className="max-w-2xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Events</p>
           </div>
