@@ -8,18 +8,24 @@ import bipraBhanu from './bipra-bhanu-mohanty.jpg';
 import hardikaJain from './hardika-jain.png';
 import ishaan from './ishaan.jpg';
 import pratik from './pratik.jpeg';
+import siddhant from './siddhant.jpg';
+import tanish from './tanish.png';
+import ranit from './ranit.jpg';
 const memberPhotos = {
   wetLab: {
     hardikaJain,
 aayushGupta,
+ranit
   },
   dryLab: {
   bipraBhanu,
 ishaan,
-pratik
+pratik,
+siddhant
   },
   humanPracticesDesign: {
-    angelSinghvi
+    angelSinghvi,
+    tanish
   },
   webDevelopment: {
     sagnikDey,

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import iitbLogo from './assets/iitb.webp';
 import igem2024Image from './assets/2024_igem.png';
 import igem2025Image from './assets/2025_igem.png';
+// import groundPicImage from './assets/ground_pic.png';
 import groundPicImage from './assets/cropped_ground.png';
 import onePicImage from './assets/onePic.png';
 import webDevPic from './assets/web_pic.png';
@@ -34,6 +35,25 @@ const resourceLinks = [
   {
     label: 'IITB News (Silver Medal)',
     href: 'https://www.iitb.ac.in/breaking-news/iit-bombays-igem-team-secures-silver-medal-paris-competition'
+  }
+];
+
+const wikiCards = [
+  {
+    season: '2025 Wiki',
+    title: 'Aureolyze',
+    description: 'Check out our research website.',
+    href: 'https://2025.igem.wiki/iit-bombay/',
+    cta: 'Open 2025 Wiki',
+    logo: igem2025Image
+  },
+  {
+    season: '2024 Wiki',
+    title: 'CalciCapture',
+    description: "Check out our previous season's research website.",
+    href: 'https://2024.igem.wiki/iit-bombay/',
+    cta: 'Open 2024 Wiki',
+    logo: igem2024Image
   }
 ];
 
@@ -103,7 +123,13 @@ const subsystemData = [
     coverImage: wetLab,
     coverAlt: 'Wet Lab team working in the lab',
     members: [
-      
+       {name: 'Ranit S Sooraj',
+          role: 'Sr. Wetlab Researcher',
+          linkedin: 'https://www.linkedin.com/in/ranit-sooraj-721705378',
+          image: memberPhotos.wetLab.ranit,
+          imagePosition: 'center 40%',
+          imageZoom: 1.2,
+        },
         {name: 'Hardika Jain',
           role: 'Wet Lab Trainee',
           linkedin: 'https://www.linkedin.com/in/hardika-jain-2719a1369?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
@@ -148,7 +174,13 @@ const subsystemData = [
           image: memberPhotos.dryLab.pratik,
           imagePosition: 'center 20%',
         },
-
+  {name: 'Siddhant Chowdhary',
+          role: 'Dry Lab Trainee',
+          linkedin: 'https://www.linkedin.com/in/siddhant-chowdhary-7498b1371/',
+          image: memberPhotos.dryLab.siddhant,
+          imagePosition: 'center 50%',
+          imageZoom: 2,
+        },
     ]
   },
   {
@@ -168,6 +200,13 @@ const subsystemData = [
           image: memberPhotos.humanPracticesDesign.angelSinghvi,
           imagePosition: 'center 140%',
            imageZoom: 1.65,
+        },
+        {name: 'Tanish Jain',
+          role: 'iHP Trainee',
+          linkedin: 'https://www.linkedin.com/in/tanish-jain-463a95369?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+          image: memberPhotos.humanPracticesDesign.tanish,
+          imagePosition: 'center 10%',
+           imageZoom: 1.1,
         },
     ]
   },
@@ -207,6 +246,13 @@ const subsystemData = [
   }
 ];
 
+const preloadImageSources = Array.from(new Set([
+  iitbLogo,
+  ...highlightGallery.map((item) => item.src),
+  ...subsystemData.map((item) => item.coverImage),
+  ...subsystemData.flatMap((item) => item.members.map((member) => member.image))
+].filter(Boolean)));
+
 const getRouteFromHash = () => {
   const hash = window.location.hash.toLowerCase();
   if (!hash.startsWith('#/')) return 'home';
@@ -229,6 +275,8 @@ const getMemberImageStyle = (member) => {
 };
 
 export default function App() {
+  const [assetsReady, setAssetsReady] = useState(false);
+  const [assetLoadProgress, setAssetLoadProgress] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [desktopSubsystemMenuOpen, setDesktopSubsystemMenuOpen] = useState(false);
   const [mobileSubsystemMenuOpen, setMobileSubsystemMenuOpen] = useState(false);
@@ -241,6 +289,57 @@ export default function App() {
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
+
+  useEffect(() => {
+    let active = true;
+    if (preloadImageSources.length === 0) {
+      setAssetLoadProgress(100);
+      setAssetsReady(true);
+      return undefined;
+    }
+
+    let loaded = 0;
+    const onAssetSettled = () => {
+      loaded += 1;
+      if (!active) return;
+      const progress = Math.round((loaded / preloadImageSources.length) * 100);
+      setAssetLoadProgress(progress);
+      if (loaded >= preloadImageSources.length) {
+        setAssetsReady(true);
+      }
+    };
+
+    const images = preloadImageSources.map((src) => {
+      const img = new Image();
+      img.onload = onAssetSettled;
+      img.onerror = onAssetSettled;
+      img.src = src;
+      return img;
+    });
+
+    const fallbackTimer = window.setTimeout(() => {
+      if (!active) return;
+      setAssetsReady(true);
+    }, 12000);
+
+    return () => {
+      active = false;
+      window.clearTimeout(fallbackTimer);
+      images.forEach((img) => {
+        img.onload = null;
+        img.onerror = null;
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    if (assetsReady) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [assetsReady]);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -333,6 +432,21 @@ export default function App() {
 
   return (
     <div className="relative flex min-h-screen flex-col  overflow-x-hidden">
+      <div
+        className={`fixed inset-0 z-[120] flex items-center justify-center bg-[radial-gradient(circle_at_18%_18%,rgba(91,192,217,0.16),transparent_44%),radial-gradient(circle_at_78%_8%,rgba(31,122,140,0.14),transparent_42%),#f6f8fb] transition-opacity duration-500 ${assetsReady ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
+      >
+        <div className="w-full  max-w-sm rounded-3xl bg-white/20 p-7 text-center ">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full  bg-transparent">
+            <div className="h-10 w-10 animate-spin rounded-full border-[3px] border-accent/25 border-t-accent" />
+          </div>
+          <p className="mt-5 text-sm  tracking-[0.28em] text-accent">iGEM IIT Bombay</p>
+          <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-black/10">
+            <div className="h-full rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] transition-all duration-300" style={{ width: `${assetLoadProgress}%` }} />
+          </div>
+          <p className="mt-2 text-xs font-semibold text-muted">{assetLoadProgress}%</p>
+        </div>
+      </div>
+
       <header className="fixed top-0 z-30 w-full">
        <div className="mx-auto w-full sm:pt-3 sm:w-[92vw] sm:px-4 md:w-[85vw] lg:w-[70vw] xl:min-w-[1050px]">
 
@@ -601,7 +715,7 @@ export default function App() {
             <img
               src={groundPicImage}
               alt="iGEM IIT Bombay logo"
-              className=" border  border-black/10 rounded-lg object-cover shadow-soft "
+              className=" border  border-black/10 rounded-xl object-cover shadow-soft "
             />
             <p className="text-sm mt-4 uppercase tracking-[0.2em] text-accent">Who are we?</p>
             <p className="mt-2  text-lg text-muted">
@@ -699,7 +813,7 @@ export default function App() {
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-accent">iGEM Wiki</p>
               <h2 className="mt-4 font-display text-3xl md:text-4xl">Our wiki is the source of record.</h2>
-              <p className="mt-4 text-muted">
+              <p className="mt-4 text-muted ">
                 The iGEM wiki hosts full technical details, experiments, results, and documentation for the team.
               </p>
             </div>
@@ -708,55 +822,21 @@ export default function App() {
   <div className="max-w-6xl mx-auto">
     
     <div className="grid gap-6 sm:grid-cols-2 justify-items-center">
-      
-      {/* 2025 Card */}
-      <div className="w-full max-w-md rounded-3xl border border-black/10 bg-white/90 p-6 shadow-soft ">
-        <p className="text-sm uppercase tracking-[0.3em] text-accent">
-          2025 Wiki
-        </p>
-
-        <h3 className="mt-4 font-display text-2xl">
-          Aureolyze
-        </h3>
-
-        <p className="mt-2 text-sm text-muted">
-          Check out our research website.
-        </p>
-
-        <a
-          className="mt-6 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-          href="https://2025.igem.wiki/iit-bombay/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Open 2025 Wiki
-        </a>
-      </div>
-
-      {/* 2024 Card */}
-      <div className="w-full max-w-md rounded-3xl border border-black/10 bg-white/90 p-6 shadow-soft ">
-        <p className="text-sm uppercase tracking-[0.3em] text-accent">
-          2024 Wiki
-        </p>
-
-        <h3 className="mt-4 font-display text-2xl">
-          CalciCapture
-        </h3>
-
-        <p className="mt-2 text-sm text-muted">
-          Check out our previous season's research website.
-        </p>
-
-        <a
-          className="mt-6 inline-flex mx-auto rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-          href="https://2024.igem.wiki/iit-bombay/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Open 2024 Wiki
-        </a>
-      </div>
-
+      {wikiCards.map((card) => (
+        <div key={card.season} className="w-full max-w-md rounded-3xl border border-black/10 bg-white/90 p-6 shadow-soft">
+          <p className="text-sm uppercase tracking-[0.3em] text-accent">{card.season}</p>
+          <h3 className="mt-4 font-display text-2xl">{card.title}</h3>
+          <p className="mt-2 text-sm text-muted">{card.description}</p>
+          <a
+            className="mt-6 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
+            href={card.href}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {card.cta}
+          </a>
+        </div>
+      ))}
     </div>
   </div>
 </div>
@@ -764,7 +844,7 @@ export default function App() {
           </div>
         </section>
         <section className="pt-5 md:pt-14" id="achievements">
-          <div className="max-w-2xl">
+          <div className="max-w-4xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Achievements</p>
             <h2 className="mt-4 font-display text-3xl md:text-4xl">Two years of learning, innovation, and impact.</h2>
           </div>
@@ -787,7 +867,7 @@ export default function App() {
 
         <section className="pt-5 md:pt-14" id="subteams">
           <div id="team-gallery" className="relative -top-24" />
-          <div className="max-w-2xl">
+          <div className="max-w-4xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Subsystems</p>
             <h2 className="mt-4 font-display text-3xl md:text-4xl">Four pillars, one mission.</h2>
             <p className="mt-3 text-sm text-muted">
@@ -821,7 +901,7 @@ export default function App() {
         </section>
 
         <section className="pt-5 md:pt-14" id="events">
-          <div className="max-w-2xl">
+          <div className="max-w-4xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Events</p>
           </div>
           
@@ -881,7 +961,7 @@ export default function App() {
         </section>
 
         <section className="py-5 md:py-14" id="gallery">
-          <div className="max-w-2xl">
+          <div className="max-w-4xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Gallery</p>       
           </div>
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
