@@ -128,7 +128,13 @@ const subsystemData = [
     coverImage: onePicImage,
     coverAlt: 'Human Practices and Design related visual',
     members: [
-     
+      
+        {name: 'Angel Singhvi',
+          role: 'Team Lead',
+          linkedin: 'https://www.linkedin.com/in/angel-singhvi-a87499337/',
+          image: memberPhotos.humanPracticesDesign.angelSinghvi,
+          imagePosition: 'center 100%'
+        }
     ]
   },
   {

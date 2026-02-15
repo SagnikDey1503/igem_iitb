@@ -2,6 +2,7 @@
 import sagnikDey from './sagnik_dey.png';
 import nisargRathod from './nisarg-rathod.png';
 import aryanPrasad from './aryan-prasad.jpg';
+import angelSinghvi from './angel-singhvi.jpeg';
 const memberPhotos = {
   wetLab: {
     
@@ -10,7 +11,7 @@ const memberPhotos = {
   
   },
   humanPracticesDesign: {
-    
+    angelSinghvi
   },
   webDevelopment: {
     sagnikDey,
