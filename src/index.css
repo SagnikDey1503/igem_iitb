@@ -23,7 +23,7 @@ body {
       rgba(169, 188, 195, 0.08),
       rgba(75, 86, 90, 0.12)
     ),
-    url("./assets/merged-image-3.png");
+    url("./assets/merged-image-3.webp");
   background-repeat: no-repeat, repeat-y;
   background-size: 100% 100%, var(--bg-size);
   background-position: 0 0, var(--bg-pos);
@@ -40,7 +40,7 @@ body {
       rgba(0, 0, 0, 0.9),
       rgba(0, 0, 0, 0.95)
     ),
-    url("./assets/merged-image-3.png");
+    url("./assets/merged-image-3.webp");
 }
 
 
