@@ -7,7 +7,7 @@ import aayushGupta from './aayush-gupta.jpeg';
 import bipraBhanu from './bipra-bhanu-mohanty.jpg';
 import hardikaJain from './hardika-jain.png';
 import ishaan from './ishaan.jpg';
-import pratik from './pratik.png';
+import pratik from './pratik.jpeg';
 const memberPhotos = {
   wetLab: {
     hardikaJain,

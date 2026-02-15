@@ -145,8 +145,7 @@ const subsystemData = [
           role: 'Dry Lab Trainee',
           linkedin: 'https://www.linkedin.com/in/pratik-ingle-6435041b9',
           image: memberPhotos.dryLab.pratik,
-          imagePosition: 'center 30%',
-          imageZoom: 0.9,
+          imagePosition: 'center 20%',
         },
 
     ]
