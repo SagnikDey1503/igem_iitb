@@ -107,13 +107,15 @@ const subsystemData = [
           role: 'Wet Lab Trainee',
           linkedin: 'https://www.linkedin.com/in/hardika-jain-2719a1369?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
           image: memberPhotos.wetLab.hardikaJain,
-          imagePosition: 'center 40%'
+          imagePosition: 'center 40%',
+          imageZoom: 1.1,
         },
         {name: 'Aayush Gupta',
           role: 'Wet Lab Trainee',
           linkedin: 'https://www.linkedin.com/in/aayush-gupta-tech/',
           image: memberPhotos.wetLab.aayushGupta,
-          imagePosition: 'center 10%'
+          imagePosition: 'center 10%',
+            imageZoom: 1,
         },
     ]
   },
@@ -143,7 +145,8 @@ const subsystemData = [
           role: 'Dry Lab Trainee',
           linkedin: 'https://www.linkedin.com/in/pratik-ingle-6435041b9',
           image: memberPhotos.dryLab.pratik,
-          imagePosition: 'center 10%'
+          imagePosition: 'center 30%',
+          imageZoom: 0.9,
         },
 
     ]
@@ -163,7 +166,8 @@ const subsystemData = [
           role: 'Team Lead',
           linkedin: 'https://www.linkedin.com/in/angel-singhvi-a87499337/',
           image: memberPhotos.humanPracticesDesign.angelSinghvi,
-          imagePosition: 'center 100%'
+          imagePosition: 'center 140%',
+           imageZoom: 1.65,
         },
     ]
   },
@@ -182,7 +186,7 @@ const subsystemData = [
         role: 'Web Lead',
         linkedin: 'https://www.linkedin.com/in/sagnik-dey-56a2a31b0/',
         image: memberPhotos.webDevelopment.sagnikDey,
-        imagePosition: 'center 35%'
+        imagePosition: 'center 35%',
       },
       {
         name: 'Nisarg Rathod',
@@ -196,7 +200,8 @@ const subsystemData = [
         role: 'Developer Trainee',
         linkedin: 'https://www.linkedin.com/in/aryan-prasad-238391376/',
         image: memberPhotos.webDevelopment.aryanPrasad,
-        imagePosition: 'center 37%'
+        imagePosition: 'center 37%',
+        imageZoom: 1,
       },
     ]
   }
@@ -211,6 +216,17 @@ const getRouteFromHash = () => {
 };
 
 const wikiMap = ['Project', 'Safety', 'Human Practices', 'Results', 'Contributions', 'Team'];
+const getImageZoom = (zoom) => (Number.isFinite(zoom) ? Math.min(2, Math.max(0.65, zoom)) : 1);
+const getMemberImageStyle = (member) => {
+  const zoom = getImageZoom(member.imageZoom);
+  const isZoomOut = zoom < 1;
+  return {
+    objectPosition: member.imagePosition || 'center center',
+    objectFit: isZoomOut ? 'contain' : 'cover',
+    transform: isZoomOut ? 'scale(1)' : `scale(${zoom})`,
+    transformOrigin: 'center center'
+  };
+};
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -528,13 +544,13 @@ export default function App() {
                     key={`${selectedSubsystem.route}-${member.name}`}
                     className="rounded-2xl border border-black/10 bg-white p-4 shadow-soft"
                   >
-                    <div className="aspect-[4/3] w-full overflow-hidden rounded-xl border border-black/10 bg-gradient-to-br from-[#d7edf5] to-[#eef7fb]">
+                    <div className="aspect-[4/3] w-full overflow-hidden rounded-xl border border-black/10 bg-white ">
                       {member.image ? (
                         <img
                           src={member.image}
                           alt={member.name}
-                          className="h-full w-full object-cover"
-                          style={{ objectPosition: member.imagePosition || 'center center' }}
+                          className="h-full w-full object-cover transition-transform duration-300"
+                          style={getMemberImageStyle(member)}
                         />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center">
