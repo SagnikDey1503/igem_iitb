@@ -102,7 +102,19 @@ const subsystemData = [
     coverImage: wetLab,
     coverAlt: 'Wet Lab team working in the lab',
     members: [
-     
+      
+        {name: 'Hardika Jain',
+          role: 'Wet Lab Trainee',
+          linkedin: 'https://www.linkedin.com/in/hardika-jain-2719a1369?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
+          image: memberPhotos.wetLab.hardikaJain,
+          imagePosition: 'center 40%'
+        },
+        {name: 'Aayush Gupta',
+          role: 'Wet Lab Trainee',
+          linkedin: 'https://www.linkedin.com/in/aayush-gupta-tech/',
+          image: memberPhotos.wetLab.aayushGupta,
+          imagePosition: 'center 10%'
+        },
     ]
   },
   {
@@ -115,7 +127,25 @@ const subsystemData = [
     coverImage: dryLab,
     coverAlt: 'Dry Lab team at iGEM',
     members: [
-     
+     {name: 'Bipra Bhanu Mohanty',
+          role: 'Dry Lab Researcher',
+          linkedin: 'https://www.linkedin.com/in/bipra-bhanu-mohanty-07409b314?utm_source=share_via&utm_content=profile&utm_medium=member_android',
+          image: memberPhotos.dryLab.bipraBhanu,
+          imagePosition: 'center 15%'
+        },
+         {name: 'Ishaan Chhaya',
+          role: 'Dry Lab Trainee',
+          linkedin: 'https://www.linkedin.com/in/ishaan-chhaya-172962369?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+          image: memberPhotos.dryLab.ishaan,
+          imagePosition: 'center 10%'
+        },
+         {name: 'Pratik Rahul Ingle',
+          role: 'Dry Lab Trainee',
+          linkedin: 'https://www.linkedin.com/in/pratik-ingle-6435041b9',
+          image: memberPhotos.dryLab.pratik,
+          imagePosition: 'center 10%'
+        },
+
     ]
   },
   {
@@ -134,7 +164,7 @@ const subsystemData = [
           linkedin: 'https://www.linkedin.com/in/angel-singhvi-a87499337/',
           image: memberPhotos.humanPracticesDesign.angelSinghvi,
           imagePosition: 'center 100%'
-        }
+        },
     ]
   },
   {
