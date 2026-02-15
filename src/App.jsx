@@ -156,14 +156,14 @@ const subsystemData = [
       },
       {
         name: 'Nisarg Rathod',
-        role: 'Web Developer',
+        role: 'Developer Trainee',
         linkedin: 'https://www.linkedin.com/in/nisarg-rathod-63b044318/',
         image: memberPhotos.webDevelopment.nisargRathod,
         imagePosition: 'center 3%'
       },
        {
         name: 'Aryan Prasad',
-        role: 'Web Developer',
+        role: 'Developer Trainee',
         linkedin: 'https://www.linkedin.com/in/aryan-prasad-238391376/',
         image: memberPhotos.webDevelopment.aryanPrasad,
         imagePosition: 'center 37%'
@@ -552,7 +552,7 @@ export default function App() {
         <section className="grid items-center gap-12 py-10 md:py-12 lg:grid-cols-[1.3fr_0.7fr]" id="about">
           <div className="rounded-[32px] border border-black/10 bg-white/85 p-8 shadow-soft">
             <p className="text-sm uppercase tracking-[0.2em] text-accent">Who are we?</p>
-            <p className="mt-6 max-w-2xl text-xl text-muted">
+            <p className="mt-6 max-w-2xl text-lg text-muted">
               iGEM IIT Bombay is a student-led synthetic biology team representing IIT Bombay at the annual iGEM
               competition. iGEM is a global synthetic biology event that brings together 400+ teams worldwide.
             </p>
