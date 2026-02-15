@@ -302,7 +302,7 @@ export default function App() {
   };
 
   const mobilePrimaryLinks = [
-    { label: 'About', href: '#about' },
+    { label: 'Home', href: '#about' },
     { label: 'Project', href: '#project' },
     { label: 'Achievements', href: '#achievements' },
     { label: 'Wiki', href: '#wiki' },
@@ -312,7 +312,7 @@ export default function App() {
   ];
 
   const desktopNavLinks = [
-    { label: 'About', href: '#about' },
+    { label: 'Home', href: '#about' },
     { label: 'Project', href: '#project' },
     { label: 'Achievements', href: '#achievements' },
     { label: 'Wiki', href: '#wiki' },
@@ -531,7 +531,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="mx-auto w-[92vw] flex-1 px-4 pt-20 md:w-[70vw] md:px-6 lg:w-[70vw] lg:pt-24 md:pt-24 lg:pt-28">
+      <main className="mx-auto w-[100vw] flex-1 px-4 pt-20 md:w-[70vw] md:px-6 lg:w-[73vw] lg:pt-24 md:pt-24 lg:pt-28">
         {selectedSubsystem ? (
           <section className="py-10 md:py-12" id={selectedSubsystem.anchorId}>
            
@@ -595,15 +595,15 @@ export default function App() {
           </section>
         ) : (
           <>
-        <section className="grid items-center gap-12 py-10 lg:py-3" id="about">
-          <div className="rounded-[32px] border border-black/10 bg-white/80  p-4 shadow-soft md:p-6">
+        <section className="grid items-center gap-12 pt-10 lg:py-3" id="about">
+          <div className="rounded-[32px]  bg-transparent  p-0 md:p-0">
             
             <img
               src={groundPicImage}
               alt="iGEM IIT Bombay logo"
-              className=" border border-black/10 rounded-2xl object-cover shadow-soft "
+              className=" border  border-black/10 rounded-lg object-cover shadow-soft "
             />
-            <p className="text-sm mt-3 uppercase tracking-[0.2em] text-accent">Who are we?</p>
+            <p className="text-sm mt-4 uppercase tracking-[0.2em] text-accent">Who are we?</p>
             <p className="mt-2  text-lg text-muted">
               iGEM IIT Bombay is a student-led synthetic biology team representing IIT Bombay at the annual iGEM
               competition. iGEM is a global synthetic biology event that brings together 400+ teams worldwide.
@@ -653,7 +653,7 @@ export default function App() {
           </div> */}
         </section>
 
-        <section className="py-10 md:pt-14" id="project">
+        <section className="py-5 md:pt-14" id="project">
 
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-accent">2025 Project</p>
@@ -694,7 +694,7 @@ export default function App() {
             </div>
           
         </section>
-    <section className="pt-10 md:pt-14" id="wiki">
+    <section className="pt-5 md:pt-14" id="wiki">
           <div className="grid gap-8 ">
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-accent">iGEM Wiki</p>
@@ -763,7 +763,7 @@ export default function App() {
 
           </div>
         </section>
-        <section className="pt-10 md:pt-14" id="achievements">
+        <section className="pt-5 md:pt-14" id="achievements">
           <div className="max-w-2xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Achievements</p>
             <h2 className="mt-4 font-display text-3xl md:text-4xl">Two years of learning, innovation, and impact.</h2>
@@ -785,7 +785,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="pt-10 md:pt-14" id="subteams">
+        <section className="pt-5 md:pt-14" id="subteams">
           <div id="team-gallery" className="relative -top-24" />
           <div className="max-w-2xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Subsystems</p>
@@ -820,7 +820,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="pt-10 md:pt-14" id="events">
+        <section className="pt-5 md:pt-14" id="events">
           <div className="max-w-2xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Events</p>
           </div>
@@ -880,7 +880,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="py-10 md:py-14" id="gallery">
+        <section className="py-5 md:py-14" id="gallery">
           <div className="max-w-2xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Gallery</p>       
           </div>
@@ -976,7 +976,7 @@ export default function App() {
             <div className="space-y-3 text-sm text-muted">
               <p className="font-semibold text-ink">Quick Links</p>
               <div className="grid grid-cols-2 gap-x-6 gap-y-1">
-                <a className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4" href="#about" onClick={(event) => handleNavbarClick(event, '#about')}>About</a>
+                <a className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4" href="#about" onClick={(event) => handleNavbarClick(event, '#about')}>Home</a>
                 <a className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4" href="#project" onClick={(event) => handleNavbarClick(event, '#project')}>Project</a>
                 <a className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4" href="#achievements" onClick={(event) => handleNavbarClick(event, '#achievements')}>Achievements</a>
                 <a className="block w-fit rounded-md px-1 py-0.5 transition hover:text-ink hover:underline hover:underline-offset-4" href="#subteams" onClick={(event) => handleNavbarClick(event, '#subteams')}>Subsystems</a>
