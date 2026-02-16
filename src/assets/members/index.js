@@ -11,6 +11,8 @@ import pratik from './pratik.jpeg';
 import siddhant from './siddhant.jpg';
 import tanish from './tanish.png';
 import ranit from './ranit.jpg';
+import ekansh from './ekansh.jpg';
+import shinjini from './shinjini.jpg';
 const memberPhotos = {
   wetLab: {
     hardikaJain,
@@ -21,11 +23,13 @@ ranit
   bipraBhanu,
 ishaan,
 pratik,
-siddhant
+siddhant,
+ekansh
   },
   humanPracticesDesign: {
     angelSinghvi,
-    tanish
+    tanish, 
+    shinjini
   },
   webDevelopment: {
     sagnikDey,
