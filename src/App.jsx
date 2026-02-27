@@ -6,6 +6,12 @@ import igem2025Image from './assets/2025_igem.png';
 import groundPicImage from './assets/cropped_ground.png';
 import memberPhotos from './assets/members';
 import teamImage from './assets/team_igem.png';
+import gold from './assets/2024_gold.png';
+import crisis from './assets/2024_crisis.png';
+import silver from './assets/2025_silver.png';
+import poster from './assets/2024_poster.png';
+import aspire from './assets/2024_aspire.png';
+import bioquest from './assets/2025_bioquest.png';
 import { BarChart3, Code2, FlaskConical, Linkedin, Instagram, Users } from "lucide-react";
 
 
@@ -57,32 +63,38 @@ const achievements = [
   {
     year: '2024',
     title: 'Gold Medal — iGEM Grand Jamboree 2024',
-    text: 'IIT Bombay secured a Gold Medal in its debut season and established a strong foundation in global synthetic biology competition.'
+    text: 'IIT Bombay secured a Gold Medal in its debut season and established a strong foundation in global synthetic biology competition.',
+    image: gold
   },
   {
     year: '2024',
     title: 'Best Climate Crisis Project Nomination',
-    text: 'The 2024 project was nominated in the Best Climate Crisis category, recognizing its sustainability relevance and innovation.'
+    text: 'The 2024 project was nominated in the Best Climate Crisis category, recognizing its sustainability relevance and innovation.',
+    image: crisis
   },
   {
     year: '2025',
     title: 'Silver Medal — iGEM 2025 (Paris)',
-    text: 'The team earned a Silver Medal at iGEM 2025, competing among 400+ teams worldwide.'
+    text: 'The team earned a Silver Medal at iGEM 2025, competing among 400+ teams worldwide.',
+    image: silver
   },
   {
     year: '2024',
     title: 'Best Poster Award — AIIM',
-    text: 'At the All India iGEM Meet, the team’s Aureolyze presentation received the Best Poster Award.'
+    text: 'At the All India iGEM Meet, the team’s Aureolyze presentation received the Best Poster Award.',
+    image: poster
   },
   {
     year: '2024-2025',
     title: 'Institutional and Industry Recognition',
-    text: 'The Aspire IITB Research Park Foundation highlighted the team’s achievements, with support from partners including Baker Hughes.'
+    text: 'The Aspire IITB Research Park Foundation highlighted the team’s achievements, with support from partners including Baker Hughes.',
+    image: aspire
   },
   {
     year: '2025',
     title: 'BioQuest Impact and Media Coverage',
-    text: 'BioQuest reached 1,500+ students across Mumbai and was featured in Times of India for student outreach impact.'
+    text: 'BioQuest reached 1,500+ students across Mumbai and was featured in Times of India for student outreach impact.',
+    image: bioquest
   }
 ];
 
@@ -861,17 +873,29 @@ export default function App() {
           </div>
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {achievements.map((item) => (
-              <article
-                key={item.title}
-                id={item.anchorId}
-                className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-              >
-                <span className="inline-flex rounded-full bg-[rgba(31,122,140,0.12)] px-3 py-1 text-sm font-semibold text-accent">
-                  {item.year}
-                </span>
-                <h3 className="mt-4 font-display text-xl">{item.title}</h3>
-                <p className="mt-2 text-sm text-muted">{item.text}</p>
-              </article>
+<div key={item.title} className="flip-card perspective h-64">
+  <div className="flip-inner">
+
+    {/* FRONT */}
+    <div className="flip-front rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft">
+      <span className="inline-flex rounded-full bg-[rgba(31,122,140,0.12)] px-3 py-1 text-sm font-semibold text-accent">
+        {item.year}
+      </span>
+      <h3 className="mt-4 font-display text-xl">{item.title}</h3>
+      <p className="mt-2 text-sm text-muted">{item.text}</p>
+    </div>
+
+    {/* BACK */}
+    <div className="flip-back overflow-hidden">
+      <img
+        src={item.image}
+        alt={item.title}
+        className="w-full h-full object-cover rounded-2xl"
+      />
+    </div>
+
+  </div>
+</div>
             ))}
           </div>
         </section>
