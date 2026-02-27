@@ -13,6 +13,7 @@ import poster from './assets/2024_poster.png';
 import aspire from './assets/2024_aspire.png';
 import bioquest from './assets/2025_bioquest.png';
 import { BarChart3, Code2, FlaskConical, Linkedin, Instagram, Users } from "lucide-react";
+import VillagesSection from './components/VillagesSection'
 
 
 const stats = [
@@ -899,6 +900,10 @@ export default function App() {
             ))}
           </div>
         </section>
+
+
+<VillagesSection />
+        
 
         <section className="pt-5 md:pt-14" id="subteams">
           <div id="team-gallery" className="relative -top-24" />
