@@ -32,7 +32,7 @@ const villages = [
 
 export default function VillagesSection() {
   return (
-    <section className="pt-5 md:pt-14">
+    <section className="pt-5 md:pt-14" id="villages">
       <p className="text-sm uppercase tracking-[0.3em] text-accent">Research Impact Areas</p>
       <h2 className="mt-4 font-display text-3xl md:text-4xl">
         Where our research makes a difference.
@@ -42,7 +42,7 @@ export default function VillagesSection() {
         domains — from fighting antimicrobial resistance to sustainable agriculture and beyond.
       </p>
 
-      <div className="mt-8  bg-transparent p-6 ">
+      <div className="mt-8  bg-transparent pt-3 ">
         <div className="grid grid-cols-3 gap-6 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 ">
           {villages.map((v, i) => (
             <div key={i} className="flex flex-col items-center gap-2">

@@ -901,9 +901,8 @@ export default function App() {
           </div>
         </section>
 
-
 <VillagesSection />
-        
+   
 
         <section className="pt-5 md:pt-14" id="subteams">
           <div id="team-gallery" className="relative -top-24" />
