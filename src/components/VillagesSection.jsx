@@ -35,23 +35,23 @@ export default function VillagesSection() {
     <section className="pt-5 md:pt-14">
       <p className="text-sm uppercase tracking-[0.3em] text-accent">Research Impact Areas</p>
       <h2 className="mt-4 font-display text-3xl md:text-4xl">
-        Where Our Research Can Make a Difference
+        Where our research makes a difference.
       </h2>
       <p className="mt-3 text-sm text-muted">
         Synthetic biology has the potential to address challenges across 14 critical
         domains — from fighting antimicrobial resistance to sustainable agriculture and beyond.
       </p>
 
-      <div className="mt-8 rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft">
-        <div className="grid grid-cols-3 gap-6 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7">
+      <div className="mt-8  bg-transparent p-6 ">
+        <div className="grid grid-cols-3 gap-6 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 ">
           {villages.map((v, i) => (
             <div key={i} className="flex flex-col items-center gap-2">
               <img
                 src={v.img}
                 alt={v.label}
-                className="w-16 h-16 rounded-full object-cover"
+               className="w-16 h-16 rounded-full object-cover border border-accent/100 hover:scale-110 transition-transform duration-200 shadow-[0_4px_10px_rgba(59,130,246,0.15)]"
               />
-              <span className="text-center text-xs font-semibold text-ink leading-tight">
+              <span className="text-center text-xs font-semibold text-accent/70 leading-tight">
                 {v.label}
               </span>
             </div>
