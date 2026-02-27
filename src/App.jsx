@@ -297,7 +297,6 @@ const getMemberImageStyle = (member) => {
 
 export default function App() {
   const [assetsReady, setAssetsReady] = useState(false);
-  const [assetLoadProgress, setAssetLoadProgress] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [desktopSubsystemMenuOpen, setDesktopSubsystemMenuOpen] = useState(false);
   const [mobileSubsystemMenuOpen, setMobileSubsystemMenuOpen] = useState(false);
@@ -314,7 +313,7 @@ export default function App() {
   useEffect(() => {
     let active = true;
     if (preloadImageSources.length === 0) {
-      setAssetLoadProgress(100);
+      window.__setLoadingProgress?.(100);
       setAssetsReady(true);
       return undefined;
     }
@@ -324,7 +323,7 @@ export default function App() {
       loaded += 1;
       if (!active) return;
       const progress = Math.round((loaded / preloadImageSources.length) * 100);
-      setAssetLoadProgress(progress);
+      window.__setLoadingProgress?.(progress);
       if (loaded >= preloadImageSources.length) {
         setAssetsReady(true);
       }
@@ -340,6 +339,7 @@ export default function App() {
 
     const fallbackTimer = window.setTimeout(() => {
       if (!active) return;
+      window.__setLoadingProgress?.(100);
       setAssetsReady(true);
     }, 12000);
 
@@ -352,6 +352,11 @@ export default function App() {
       });
     };
   }, []);
+
+  useEffect(() => {
+    if (!assetsReady) return;
+    window.__doneLoading?.();
+  }, [assetsReady]);
 
   useEffect(() => {
     if (assetsReady) return undefined;
@@ -453,24 +458,6 @@ export default function App() {
 
   return (
     <div className="relative flex min-h-screen flex-col  overflow-x-hidden">
-     <div
-  className={`fixed inset-0 z-[9999] flex items-center justify-center bg-white transition-opacity duration-500 ${
-    assetsReady ? 'pointer-events-none opacity-0' : 'opacity-100'
-  }`}
->
-
-        <div className="w-full  max-w-sm rounded-3xl bg-transparent p-7 text-center ">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full  bg-transparent">
-            <div className="h-10 w-10 animate-spin rounded-full border-[3px] border-accent/25 border-t-accent" />
-          </div>
-          <p className="mt-5 text-sm  tracking-[0.28em] text-accent">Loading iGEM IIT Bombay</p>
-          <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-black/10">
-            <div className="h-full rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] transition-all duration-300" style={{ width: `${assetLoadProgress}%` }} />
-          </div>
-          <p className="mt-2 text-xs font-semibold text-muted">{assetLoadProgress}%</p>
-        </div>
-      </div>
-
       <header className="fixed top-0 z-30 w-full">
        <div className="mx-auto w-full sm:pt-3 sm:w-[92vw] sm:px-4 md:w-[85vw] lg:w-[70vw] xl:min-w-[1050px]">
 
