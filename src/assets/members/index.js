@@ -13,11 +13,13 @@ import tanish from './tanish.png';
 import ranit from './ranit.jpg';
 import ekansh from './ekansh.jpg';
 import shinjini from './shinjini.jpg';
+import durva from './durva.jpeg';
 const memberPhotos = {
   wetLab: {
     hardikaJain,
 aayushGupta,
-ranit
+ranit,
+durva
   },
   dryLab: {
   bipraBhanu,
