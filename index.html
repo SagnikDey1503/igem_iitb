@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iGEM IIT Bombay</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #f5f0e8;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        opacity: 0.5;
+        z-index: 0;
+      }
+
+      #root {
+        position: relative;
+        z-index: 1;
+      }
+
+      #loading-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(245, 240, 232, 0.96);
+        font-family: 'Space Mono', monospace;
+        transition: opacity 0.6s ease;
+      }
+
+      #loading-screen.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .igem-label {
+        position: relative;
+        margin-bottom: 48px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .igem-wordmark {
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 600;
+        font-size: 42px;
+        letter-spacing: 0.18em;
+        color: #3a3020;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .igem-wordmark .gem {
+        font-style: italic;
+        font-weight: 300;
+        color: #6b9cb8;
+      }
+
+      .igem-wordmark .i-lower {
+        text-transform: none;
+        color: #8b7355;
+        font-weight: 300;
+      }
+
+      .igem-wordmark .iitb {
+        font-style: normal;
+        font-weight: 300;
+        font-size: 28px;
+        color: #8b7355;
+        letter-spacing: 0.22em;
+        margin-left: 6px;
+      }
+
+      .igem-rule {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #8b7355 30%, #6b9cb8 70%, transparent);
+        margin: 6px 0 0;
+      }
+
+      .dna-container {
+        margin-bottom: 40px;
+      }
+
+      canvas {
+        display: block;
+      }
+
+      .loading-text {
+        font-family: 'Space Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.45em;
+        color: #6b9cb8;
+        text-transform: uppercase;
+        position: relative;
+      }
+
+      .loading-text::after {
+        content: '';
+        animation: dots 1.6s steps(4, end) infinite;
+      }
+
+      @keyframes dots {
+        0% {
+          content: '';
+        }
+        25% {
+          content: '.';
+        }
+        50% {
+          content: '..';
+        }
+        75% {
+          content: '...';
+        }
+        100% {
+          content: '';
+        }
+      }
+
+      .progress-wrap {
+        margin-top: 22px;
+        width: 180px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .progress-track {
+        width: 100%;
+        height: 3px;
+        background: rgba(107, 156, 184, 0.18);
+        border-radius: 99px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        width: 0%;
+        height: 100%;
+        border-radius: 99px;
+        background: linear-gradient(to right, #4a7fa0, #a8d8f0);
+        box-shadow: 0 0 8px rgba(107, 156, 184, 0.6);
+        transition: width 0.12s ease;
+      }
+
+      .progress-pct {
+        font-family: 'Space Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        color: #6b9cb8;
+      }
+    </style>
+    <script type="module" crossorigin src="/igem_iitb/assets/index-BqENdizc.js"></script>
+    <link rel="stylesheet" crossorigin href="/igem_iitb/assets/index-C4TbOE1E.css">
+  </head>
+  <body>
+    <div id="loading-screen">
+      <div class="igem-label">
+        <div class="igem-wordmark"><span class="i-lower">i</span><span class="gem">GEM</span><span class="iitb">IITB</span></div>
+        <div class="igem-rule"></div>
+      </div>
+
+      <div class="dna-container">
+        <canvas id="dna" width="120" height="260"></canvas>
+      </div>
+
+      <div class="loading-text">Loading</div>
+      <div class="progress-wrap">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-pct" id="progressPct">0%</div>
+      </div>
+    </div>
+
+    <div id="root"></div>
+
+    <script>
+      (() => {
+        const loadingScreen = document.getElementById('loading-screen');
+        const fill = document.getElementById('progressFill');
+        const pctLabel = document.getElementById('progressPct');
+        const canvas = document.getElementById('dna');
+        const ctx = canvas.getContext('2d');
+
+        const W = canvas.width;
+        const H = canvas.height;
+        const strand1Color = '#6B9CB8';
+        const strand2Color = '#4A7FA0';
+        const runColor = '#A8C8DC';
+        const numPoints = 28;
+        const amplitude = 28;
+        const centerX = W / 2;
+
+        let phase = 0;
+        let progress = 0;
+
+        function setProgress(value) {
+          progress = Math.max(progress, Math.min(100, value));
+          fill.style.width = `${progress}%`;
+          pctLabel.textContent = `${Math.round(progress)}%`;
+        }
+
+        function drawDNA() {
+          ctx.clearRect(0, 0, W, H);
+
+          const points1 = [];
+          const points2 = [];
+
+          for (let i = 0; i <= numPoints; i += 1) {
+            const t = (i / numPoints) * Math.PI * 2 + phase;
+            const y = 10 + (i / numPoints) * (H - 20);
+
+            const x1 = centerX + amplitude * Math.cos(t);
+            const x2 = centerX + amplitude * Math.cos(t + Math.PI);
+            const z1 = amplitude * Math.sin(t);
+            const z2 = amplitude * Math.sin(t + Math.PI);
+
+            const depth1 = (z1 + amplitude) / (2 * amplitude);
+            const depth2 = (z2 + amplitude) / (2 * amplitude);
+
+            points1.push({ x: x1, y, depth: depth1 });
+            points2.push({ x: x2, y, depth: depth2 });
+          }
+
+          for (let i = 0; i <= numPoints; i += 2) {
+            const p1 = points1[i];
+            const p2 = points2[i];
+            const avgDepth = (p1.depth + p2.depth) / 2;
+            const alpha = 0.15 + avgDepth * 0.5;
+
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.strokeStyle = runColor;
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+            ctx.restore();
+          }
+
+          for (let i = 0; i < numPoints; i += 1) {
+            const p = points1[i];
+            const pn = points1[i + 1];
+            const avgDepth = (p.depth + pn.depth) / 2;
+
+            ctx.save();
+            ctx.globalAlpha = 0.35 + avgDepth * 0.65;
+            ctx.strokeStyle = strand1Color;
+            ctx.lineWidth = 1.5 + avgDepth * 2;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(pn.x, pn.y);
+            ctx.stroke();
+            ctx.restore();
+          }
+
+          for (let i = 0; i < numPoints; i += 1) {
+            const p = points2[i];
+            const pn = points2[i + 1];
+            const avgDepth = (p.depth + pn.depth) / 2;
+
+            ctx.save();
+            ctx.globalAlpha = 0.35 + avgDepth * 0.65;
+            ctx.strokeStyle = strand2Color;
+            ctx.lineWidth = 1.5 + avgDepth * 2;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(pn.x, pn.y);
+            ctx.stroke();
+            ctx.restore();
+          }
+        }
+
+        function animate() {
+          phase += 0.025;
+          drawDNA();
+          if (!loadingScreen.classList.contains('hidden')) {
+            requestAnimationFrame(animate);
+          }
+        }
+
+        window.__setLoadingProgress = (value) => {
+          setProgress(value);
+        };
+
+        window.__doneLoading = () => {
+          setProgress(100);
+          setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            setTimeout(() => {
+              loadingScreen.style.display = 'none';
+            }, 600);
+          }, 250);
+        };
+
+        animate();
+      })();
+    </script>
+
+  </body>
+</html>
