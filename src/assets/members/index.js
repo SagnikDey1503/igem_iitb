@@ -14,12 +14,16 @@ import ranit from './ranit.jpg';
 import ekansh from './ekansh.jpg';
 import shinjini from './shinjini.jpg';
 import durva from './durva.jpeg';
+import aarohi from './aaorhi.jpg';
+import yashika from './yashika.jpeg';
 const memberPhotos = {
   wetLab: {
+    aarohi,
     hardikaJain,
 aayushGupta,
 ranit,
-durva
+durva,
+
   },
   dryLab: {
   bipraBhanu,
@@ -30,6 +34,7 @@ ekansh
   },
   humanPracticesDesign: {
     angelSinghvi,
+    yashika,
     tanish, 
     shinjini
   },
