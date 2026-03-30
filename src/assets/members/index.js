@@ -16,6 +16,7 @@ import shinjini from './shinjini.jpg';
 import durva from './durva.jpeg';
 import aarohi from './aaorhi.jpg';
 import yashika from './yashika.jpeg';
+import latisha from './latisha.jpg'; 
 const memberPhotos = {
   wetLab: {
     aarohi,
@@ -36,7 +37,8 @@ ekansh
     angelSinghvi,
     yashika,
     tanish, 
-    shinjini
+    shinjini,
+    latisha
   },
   webDevelopment: {
     sagnikDey,

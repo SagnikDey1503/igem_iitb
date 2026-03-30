@@ -275,7 +275,14 @@ const subsystemData = [
           imagePosition: 'center 140%',
            imageZoom: 1.5,
         },
-    ]
+        {name: 'Latisha Meena',
+          role: 'iHP Trainee',
+          linkedin: 'https://www.linkedin.com/in/latisha-meena-06b48a3bb?utm_source=share_via&utm_content=profile&utm_medium=member_android',
+          image: memberPhotos.humanPracticesDesign.latisha,
+          imagePosition: 'center 120%',
+           imageZoom: 1.2,
+        },
+      ]
   },
   {
     route: 'web-development',
