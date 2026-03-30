@@ -6,12 +6,15 @@ import igem2025Image from './assets/2025_igem.png';
 import groundPicImage from './assets/cropped_ground.png';
 import memberPhotos from './assets/members';
 import teamImage from './assets/team_igem.png';
+import gogecCert from './assets/gogec_cert.png';
 import gold from './assets/2024_gold.png';
 import crisis from './assets/2024_crisis.png';
 import silver from './assets/2025_silver.png';
 import poster from './assets/2024_poster.png';
 import aspire from './assets/2024_aspire.png';
 import bioquest from './assets/2025_bioquest.png';
+import onePic from './assets/onePic.png';
+import twoPic from './assets/twoPic.png';
 import { BarChart3, Code2, FlaskConical, Linkedin, Instagram, Users } from "lucide-react";
 import VillagesSection from './components/VillagesSection'
 
@@ -45,7 +48,10 @@ const wikiCards = [
   {
     season: '2025 Wiki',
     title: 'Aureolyze',
-    description: 'Check out our research website.',
+    description: [
+      'Aureolyze targets AMR biofilms using engineered extracellular serine protease pathways.',
+      'The wiki presents design rationale, experiments, modeling, and final outcomes.'
+    ],
     href: 'https://2025.igem.wiki/iit-bombay/',
     cta: 'Open 2025 Wiki',
     logo: igem2025Image
@@ -53,7 +59,10 @@ const wikiCards = [
   {
     season: '2024 Wiki',
     title: 'CalciCapture',
-    description: "Check out our previous season's research website.",
+    description: [
+      'CalciCapture explored climate-focused synthetic biology through calcium-driven biodesign.',
+      'The wiki covers methods, validation, results, and documented team contributions.'
+    ],
     href: 'https://2024.igem.wiki/iit-bombay/',
     cta: 'Open 2024 Wiki',
     logo: igem2024Image
@@ -86,7 +95,7 @@ const achievements = [
     image: poster
   },
   {
-    year: '2024-2025',
+    year: '2024',
     title: 'Institutional and Industry Recognition',
     text: 'The Aspire IITB Research Park Foundation highlighted the team’s achievements, with support from partners including Baker Hughes.',
     image: aspire
@@ -96,6 +105,19 @@ const achievements = [
     title: 'BioQuest Impact and Media Coverage',
     text: 'BioQuest reached 1,500+ students across Mumbai and was featured in Times of India for student outreach impact.',
     image: bioquest
+  },
+  
+  {
+    year: '2025',
+    title: 'WRCB Recognition for Global Performance',
+    text: 'Wadhwani Research Centre for Bioengineering acknowledged the team’s international standing and interdisciplinary AMR-focused research progress.',
+   
+  },
+  {
+    year: '2026',
+    title: 'Silver Medal — GOGEC',
+    text: 'Aureolyze secured Silver Medal at GOGEC 2026, extending the team’s global recognition trajectory beyond iGEM seasons.',
+    image: gogecCert
   }
 ];
 
@@ -680,7 +702,27 @@ export default function App() {
       <main className="mx-auto w-[100vw] flex-1 px-4 pt-20 md:w-[70vw] md:px-6 lg:w-[73vw] lg:pt-24 md:pt-24 lg:pt-28">
         {selectedSubsystem ? (
           <section className="py-10 md:py-12" id={selectedSubsystem.anchorId}>
-           
+            {selectedSubsystem.route === 'wet-lab' ? (
+              <div className="mb-8 rounded-2xl bg-transparent p-5  md:p-6">
+                <p className="text-sm uppercase tracking-[0.3em] text-accent">What We Do</p>
+                <p className="mt-3 text-sm text-muted md:text-base">We design and execute the full experimental pipeline: construct assembly, strain validation, assay development, and biosafety checks to ensure reproducible in-lab results.
+</p>
+                <div className="mt-6">
+                  <p className="text-xs uppercase tracking-[0.22em] text-accent">Lab Highlights</p>
+                  <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+                    {[1, 2, 3, 4, 5, 6].map((slot) => (
+                      <div
+                        key={`wet-lab-slot-${slot}`}
+                        className="flex aspect-square items-center justify-center rounded-xl border border-dashed border-black/20 bg-[#f6fbff] text-[11px] font-semibold uppercase tracking-[0.12em] text-muted"
+                      >
+                        Photo {slot}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : null}
+
             <div className="mt-0 rounded-3xl  bg-transparent ">
               <p className="text-sm uppercase tracking-[0.3em] text-accent">Team Members</p>
               <h3 className="mt-3 font-display text-2xl">Meet the {selectedSubsystem.title} members</h3>
@@ -751,8 +793,7 @@ export default function App() {
             />
             <p className="text-sm mt-4 uppercase tracking-[0.2em] text-accent">Who are we?</p>
             <p className="mt-2  text-lg text-muted">
-              iGEM IIT Bombay is a student-led synthetic biology team representing IIT Bombay at the annual iGEM
-              competition. iGEM is a global synthetic biology event that brings together 400+ teams worldwide.
+              We are a multidisciplinary collective of engineers, scientists, and visionaries from IIT Bombay, united by a single mission: to redefine the boundaries of biology. As India’s premier student-led synthetic biology team, we don’t just compete on the global iGEM stage—we engineer solutions for a sustainable future. By merging the precision of engineering with the infinite potential of nature, we are tackling the world’s most pressing challenges, one genetic circuit at a time.
             </p>
             {/* <div className="mt-8 flex flex-wrap  gap-4">
               <a
@@ -858,7 +899,13 @@ export default function App() {
         <div key={card.season} className="w-full max-w-md rounded-3xl border border-black/10 bg-white/90 p-6 shadow-soft">
           <p className="text-sm uppercase tracking-[0.3em] text-accent">{card.season}</p>
           <h3 className="mt-4 font-display text-2xl">{card.title}</h3>
-          <p className="mt-2 text-sm text-muted">{card.description}</p>
+          <p className="mt-2 text-sm text-muted">
+            {(Array.isArray(card.description) ? card.description : [card.description]).map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </p>
           <a
             className="mt-6 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-5 py-2 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
             href={card.href}
@@ -881,31 +928,36 @@ export default function App() {
             <h2 className="mt-4 font-display text-3xl md:text-4xl">Two years of learning, innovation, and impact.</h2>
           </div>
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {achievements.map((item) => (
-<div key={item.title} className="flip-card perspective h-72 md:h-80">
-  <div className="flip-inner">
+            {achievements.map((item) => {
+  const hasImage = Boolean(item.image);
+  return (
+<div key={item.title} className={`${hasImage ? 'flip-card perspective' : ''} h-[17rem] md:h-[18rem]`}>
+  <div className={hasImage ? 'flip-inner' : 'h-full'}>
 
     {/* FRONT */}
-    <div className="flip-front rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft">
+    <div className={`${hasImage ? 'flip-front' : 'h-full'} rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft`}>
       <span className="inline-flex rounded-full bg-[rgba(31,122,140,0.12)] px-3 py-1 text-sm font-semibold text-accent">
         {item.year}
       </span>
-      <h3 className="mt-4 font-display text-xl">{item.title}</h3>
-      <p className="mt-2 text-sm text-muted">{item.text}</p>
+      <h3 className="mt-3 font-display text-xl leading-tight">{item.title}</h3>
+      <p className="achievement-text mt-2 text-sm text-muted">{item.text}</p>
     </div>
 
     {/* BACK */}
-    <div className="flip-back overflow-hidden">
-      <img
-        src={item.image}
-        alt={item.title}
-        className="w-full h-full object-cover rounded-2xl"
-      />
-    </div>
+    {hasImage ? (
+      <div className="flip-back overflow-hidden">
+        <img
+          src={item.image}
+          alt={item.title}
+          className="h-full w-full rounded-2xl object-cover"
+        />
+      </div>
+    ) : null}
 
   </div>
 </div>
-            ))}
+            );
+})}
           </div>
         </section>
 
@@ -980,11 +1032,11 @@ export default function App() {
 
             <div>
               <h3 className="mb-6 font-display text-2xl">Past Events</h3>
-              <div className="grid gap-6">
+              <div className="grid max-w-4xl gap-6">
                 {[
                   {
                     title: 'SYNBIOCON 2026',
-                    text: 'A collaborative synthetic biology conference hosted by IIT Bombay and IIT Kharagpur.',
+                    text: 'A collaborative pan-India, two day synthetic biology conference hosted by IIT Bombay and IIT Kharagpur.',
                     date: '2026',
                     link: 'https://www.synbiocon2026.in',
                     linkText: 'View event page'
@@ -992,7 +1044,7 @@ export default function App() {
                   {
                     title: 'BioQuest 2025',
                     text: 'Conducted large-scale synthetic biology outreach and engagement across schools and students in Mumbai.',
-                    date: 'SUMMER 2025'
+                    date: '2025'
                   },
                 ].map((event) => (
                   <article

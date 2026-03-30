@@ -90,6 +90,13 @@ body {
   transform: rotateY(180deg);
 }
 
+.achievement-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
 @media (max-width: 1024px), (hover: none), (pointer: coarse) {
   .perspective {
     perspective: none !important;
