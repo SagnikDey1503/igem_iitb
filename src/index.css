@@ -89,3 +89,23 @@ body {
 .flip-back {
   transform: rotateY(180deg);
 }
+
+@media (max-width: 1024px), (hover: none), (pointer: coarse) {
+  .perspective {
+    perspective: none !important;
+  }
+
+  .flip-inner {
+    transform: none !important;
+    transform-style: flat !important;
+    transition: none !important;
+  }
+
+  .flip-card:hover .flip-inner {
+    transform: none !important;
+  }
+
+  .flip-back {
+    display: none !important;
+  }
+}

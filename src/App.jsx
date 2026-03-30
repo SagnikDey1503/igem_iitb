@@ -882,7 +882,7 @@ export default function App() {
           </div>
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {achievements.map((item) => (
-<div key={item.title} className="flip-card perspective h-64">
+<div key={item.title} className="flip-card perspective h-72 md:h-80">
   <div className="flip-inner">
 
     {/* FRONT */}
@@ -957,16 +957,14 @@ export default function App() {
             <p className="text-sm uppercase tracking-[0.3em] text-accent">Events</p>
           </div>
           
-          <div className="mt-6 grid gap-8 xl:grid-cols-2">
-            <div>
+          <div className="mt-6">
+            {/* <div>
               <h3 className="mb-6 font-display text-2xl">Upcoming Events</h3>
               <div className="grid gap-6">
                 {[
                   {
-                    title: 'SYNBIOCON 2026',
-                    text: 'A collaborative synthetic biology conference hosted by IIT Bombay and IIT Kharagpur.',
-                    link: 'https://www.synbiocon2026.in',
-                    linkText: 'Visit our website'
+                    title: 'No upcoming events',
+                    text: 'There are currently no scheduled upcoming events. New announcements will be posted here.'
                   },
                 ].map((event) => (
                   <article
@@ -975,23 +973,22 @@ export default function App() {
                   >
                     <h3 className="font-display text-xl">{event.title}</h3>
                     <p className="mt-2 text-sm text-muted">{event.text}</p>
-                    <a
-                      className="mt-4 inline-flex rounded-full bg-gradient-to-r from-accent to-[#5bc0d9] px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lg"
-                      href={event.link}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {event.linkText}
-                    </a>
                   </article>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             <div>
               <h3 className="mb-6 font-display text-2xl">Past Events</h3>
               <div className="grid gap-6">
                 {[
+                  {
+                    title: 'SYNBIOCON 2026',
+                    text: 'A collaborative synthetic biology conference hosted by IIT Bombay and IIT Kharagpur.',
+                    date: '2026',
+                    link: 'https://www.synbiocon2026.in',
+                    linkText: 'View event page'
+                  },
                   {
                     title: 'BioQuest 2025',
                     text: 'Conducted large-scale synthetic biology outreach and engagement across schools and students in Mumbai.',
@@ -1005,6 +1002,16 @@ export default function App() {
                     <span className="text-sm uppercase tracking-[0.2em] text-accent">{event.date}</span>
                     <h3 className="mt-3 font-display text-xl">{event.title}</h3>
                     <p className="mt-2 text-sm text-muted">{event.text}</p>
+                    {event.link ? (
+                      <a
+                        className="mt-4 inline-flex text-sm font-semibold text-accent transition hover:underline hover:underline-offset-4"
+                        href={event.link}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {event.linkText}
+                      </a>
+                    ) : null}
                   </article>
                 ))}
               </div>
