@@ -13,8 +13,19 @@ import silver from './assets/2025_silver.png';
 import poster from './assets/2024_poster.png';
 import aspire from './assets/2024_aspire.png';
 import bioquest from './assets/2025_bioquest.png';
+import aiim from './assets/aiim.png';
+import wrcb from './assets/wrcb.png';
 import onePic from './assets/onePic.png';
 import twoPic from './assets/twoPic.png';
+import wetlab1 from './assets/wetlab_1.png';
+import wetlab2 from './assets/wetlab_2.png';
+import wetlab3 from './assets/wetlab_3.png';
+import wetlab4 from './assets/wetlab_4.png';
+import wetlab5 from './assets/wetlab_5.png';
+import wetlab6 from './assets/wetlab_6.png';
+import wetlab7 from './assets/wetlab_7.png';
+import profSaket from './assets/profSaket.png';
+import profRajesh from './assets/profRajesh.png';
 import { BarChart3, Code2, FlaskConical, Linkedin, Instagram, Users } from "lucide-react";
 import VillagesSection from './components/VillagesSection'
 
@@ -41,6 +52,23 @@ const resourceLinks = [
   {
     label: 'IITB News (Silver Medal)',
     href: 'https://www.iitb.ac.in/breaking-news/iit-bombays-igem-team-secures-silver-medal-paris-competition'
+  }
+];
+
+const facultyMentors = [
+  {
+    name: 'Prof. Saket Choudhary',
+    role: 'Faculty Advisor',
+    dept: 'Koita Centre for Digital Health (KCDH), IIT Bombay',
+    text: 'Guides project strategy at the intersection of computation, systems thinking, and translational research planning.',
+    image: profSaket
+  },
+  {
+    name: 'Prof. Rajesh Patkar',
+    role: 'Faculty Advisor',
+    dept: 'Department of Biosciences and Bioengineering (BSBE), IIT Bombay',
+    text: 'Supports scientific direction, experimental rigor, and multidisciplinary integration across the iGEM workflow.',
+    image: profRajesh
   }
 ];
 
@@ -92,7 +120,7 @@ const achievements = [
     year: '2024',
     title: 'Best Poster Award — AIIM',
     text: 'At the All India iGEM Meet, the team’s Aureolyze presentation received the Best Poster Award.',
-    image: poster
+    image: aiim
   },
   {
     year: '2024',
@@ -111,7 +139,7 @@ const achievements = [
     year: '2025',
     title: 'WRCB Recognition for Global Performance',
     text: 'Wadhwani Research Centre for Bioengineering acknowledged the team’s international standing and interdisciplinary AMR-focused research progress.',
-   
+   image: wrcb
   },
   {
     year: '2026',
@@ -149,6 +177,8 @@ const highlightGallery = [
     caption: 'Team ground photo highlight.'
   }
 ];
+
+const wetLabHighlights = [wetlab1, wetlab2, wetlab3, wetlab4, wetlab5, wetlab6, wetlab7];
 
 const subsystemData = [
   {
@@ -716,14 +746,14 @@ export default function App() {
 </p>
                 <div className="mt-6">
                   <p className="text-xs uppercase tracking-[0.22em] text-accent">Lab Highlights</p>
-                  <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-                    {[1, 2, 3, 4, 5, 6].map((slot) => (
-                      <div
-                        key={`wet-lab-slot-${slot}`}
-                        className="flex aspect-square items-center justify-center rounded-xl border border-dashed border-black/20 bg-[#f6fbff] text-[11px] font-semibold uppercase tracking-[0.12em] text-muted"
-                      >
-                        Photo {slot}
-                      </div>
+                  <div className="mt-3 grid grid-cols-4 gap-3">
+                    {wetLabHighlights.map((image, index) => (
+                      <img
+                        key={`wet-lab-photo-${index + 1}`}
+                        src={image}
+                        alt={`Wet lab highlight ${index + 1}`}
+                        className="aspect-square w-full rounded-xl border border-black/10 object-cover shadow-soft"
+                      />
                     ))}
                   </div>
                 </div>
@@ -887,6 +917,51 @@ export default function App() {
               </div>
             </div>
           
+        </section>
+
+        <section className="pt-5 md:pt-14" id="faculty">
+          <div className="max-w-4xl">
+            <p className="text-sm uppercase tracking-[0.3em] text-accent">Faculty Advisors</p>
+            {/* <h2 className="mt-4 font-display text-3xl md:text-4xl">Mentorship and academic guidance</h2> */}
+            <p className="mt-3 text-sm text-muted md:text-base">
+              Our faculty advisors provide scientific oversight and help align project decisions with robust research standards.
+            </p>
+          </div>
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            {facultyMentors.map((mentor) => (
+              <article
+                key={mentor.name}
+                className="rounded-2xl border border-black/10 bg-white/90 p-6 shadow-soft"
+              >
+                <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-start sm:text-left">
+                  <div className="h-28 w-28 shrink-0 overflow-hidden rounded-full border-4 border-[rgba(31,122,140,0.2)] bg-white shadow-soft sm:h-32 sm:w-32">
+                    {mentor.image ? (
+                      <img
+                        src={mentor.image}
+                        alt={mentor.name}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center text-2xl font-semibold text-accent">
+                        {mentor.name
+                          .replace('Prof. ', '')
+                          .split(' ')
+                          .map((part) => part[0])
+                          .join('')
+                          .slice(0, 2)}
+                      </div>
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs uppercase tracking-[0.2em] text-accent">{mentor.role}</p>
+                    <h3 className="mt-1 font-display text-2xl">{mentor.name}</h3>
+                    <p className="mt-2 text-sm font-medium text-ink/80">{mentor.dept}</p>
+                  </div>
+                </div>
+                {/* <p className="mt-4 text-sm text-muted">{mentor.text}</p> */}
+              </article>
+            ))}
+          </div>
         </section>
     <section className="pt-5 md:pt-14" id="wiki">
           <div className="grid gap-8 ">
